@@ -1,3 +1,11 @@
+let notifId = "wordreference";
+
+function openExportPage() {
+  browser.tabs.create({
+    "url": "/exportPage.html"
+  });
+}
+
 function notify(message) {
   let translatee = message.translatee;
   let translated = message.translated;
@@ -27,20 +35,22 @@ function notify(message) {
     console.log("Error: " + error);
   });
 
-  browser.notifications.create({
+  let randNum = Math.floor(Math.random() * 100000000) + 1;
+  let customNotifId = notifId + randNum;
+
+  browser.notifications.create(customNotifId, {
     "type": "basic",
     "iconUrl": "icons/page-48.png",
     "title": "WordReference",
     "message": "Translated " + translatee + " (" + fromLanguage + ") to " + translated + " (" + toLanguage + ")"
   });
+
+  window.setTimeout(() => {
+    browser.notifications.clear(customNotifId);
+  },2000);
 }
 
 browser.runtime.onMessage.addListener(notify);
 
-function openExportPage() {
-  browser.tabs.create({
-    "url": "/exportPage.html"
-  });
-}
-
+browser.notifications.onClicked.addListener(openExportPage);
 browser.browserAction.onClicked.addListener(openExportPage);
