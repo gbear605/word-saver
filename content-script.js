@@ -3,8 +3,8 @@ if(row != null) {
   let fromLanguage = row.id.split(":")[0][0] + row.id.split(":")[0][1];
   let toLanguage = row.id.split(":")[0][2] + row.id.split(":")[0][3];
 
-  let translatee = row.children[0].firstChild.textContent.trim()
-  let translated = row.children[2].firstChild.textContent.trim()
+  let translatee = row.children[0].firstChild.textContent.trim().replace("⇒","");
+  let translated = row.children[2].firstChild.textContent.trim().replace("⇒","");
 
   console.log("Translated " + translatee + " to " + translated);
   browser.runtime.sendMessage(
