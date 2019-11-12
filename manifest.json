@@ -1,0 +1,37 @@
+{
+  "manifest_version": 2,
+  "name": "WordReference Saver",
+  "description": "Save words from WordReference to a text list.",
+  "version": "1.0",
+  "homepage_url": "https://greenwichmeanti.me/wordreference",
+
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+
+  "icons": {
+    "48": "icons/page-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.wordreference.com/*"],
+      "js": ["content-script.js"],
+      "run_at": "document_end"
+    }
+  ],
+
+  "browser_action": {
+    "default_icon": "icons/page-32.png"
+  },
+
+  "permissions": [
+    "webRequest",
+    "*://*.wordreference.com/*",
+    "storage",
+    "unlimitedStorage",
+    "notifications"
+  ]
+}
