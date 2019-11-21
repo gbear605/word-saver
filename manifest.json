@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "WordReference Saver",
   "description": "Save words from WordReference to a text list.",
-  "version": "1.0.2",
+  "version": "1.1",
   "homepage_url": "https://greenwichmeanti.me/wordreference",
 
   "background": {

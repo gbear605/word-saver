@@ -6,19 +6,14 @@ function openExportPage() {
   });
 }
 
-function notify(message) {
-  let translatee = message.translatee;
-  let translated = message.translated;
-  let fromLanguage = message.fromLanguage;
-  let toLanguage = message.toLanguage;
-
+function saveWord(translatee, translated) {
   browser.storage.local.get({
     translatedWords: [] // the default value is an empty array
   }).then((obj) => {
     let translatedWords = obj.translatedWords;
 
-    let toAdd = `${translatee}; ${translated}`;
-    let toAddAlt = `${translated}; ${translatee}`;
+    let toAdd = `${translatee}\t${translated}`;
+    let toAddAlt = `${translated}\t${translatee}`;
     
     // Don't add duplicates, including the same word in the opposite language order
     if(!translatedWords.includes(toAdd) && !translatedWords.includes(toAddAlt)) {
@@ -34,6 +29,15 @@ function notify(message) {
   }, (error) => {
     console.log("Error: " + error);
   });
+}
+
+function notify(message) {
+  let translatee = message.translatee;
+  let translated = message.translated;
+  let fromLanguage = message.fromLanguage;
+  let toLanguage = message.toLanguage;
+
+  saveWord(translatee, translated);
 
   let randNum = Math.floor(Math.random() * 100000000) + 1;
   let customNotifId = notifId + randNum;

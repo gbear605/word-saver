@@ -1,10 +1,94 @@
-browser.storage.local.get({
-  translatedWords: [] // the default value is an empty array
-}).then((obj) => { 
-  document.getElementsByTagName("textfield")[0].innerText = obj.translatedWords.join("\n");
-});
+function saveWords(words, callback) {
+  browser.storage.local.get({
+    translatedWords: [] // the default value is an empty array
+  }).then((obj) => {
+    let translatedWords = obj.translatedWords;
 
-window.onload = () => document.getElementsByTagName("button")[0].addEventListener("click", () => {
-  browser.storage.local.clear();
-  document.getElementsByTagName("textfield")[0].innerText = "";
-});
+    for (word of words) {
+      let parts = word.split('\t');
+      let toAdd = `${parts[0]}\t${parts[1]}`;
+      translatedWords.push(toAdd);
+      console.log("Adding " + toAdd);
+    }
+      
+    browser.storage.local.set({translatedWords}).then(() => {
+      console.log(translatedWords);
+      if(callback != null) {
+        callback();
+      }
+    }, (error) => {
+      console.log("Error: " + error);
+    });
+  }, (error) => {
+    console.log("Error: " + error);
+  });
+}
+
+function saveWord(translatee, translated, callback) {
+  browser.storage.local.get({
+    translatedWords: [] // the default value is an empty array
+  }).then((obj) => {
+    let translatedWords = obj.translatedWords;
+
+    let toAdd = `${translatee}\t${translated}`;
+    let toAddAlt = `${translated}\t${translatee}`;
+    
+    // Don't add duplicates, including the same word in the opposite language order
+    if(!translatedWords.includes(toAdd) && !translatedWords.includes(toAddAlt)) {
+      translatedWords.push(toAdd);
+      console.log("Adding " + toAdd);
+    
+      browser.storage.local.set({translatedWords}).then(() => {
+        console.log(translatedWords);
+        if(callback != null) {
+          callback();
+        }
+      }, (error) => {
+        console.log("Error: " + error);
+      });
+    }
+  }, (error) => {
+    console.log("Error: " + error);
+  });
+}
+
+function setPage(text, numRows) {
+  document.getElementById("displayArea").innerText = text;
+  let textarea = document.getElementById("editField")
+  textarea.value = text;
+  textarea.rows = numRows;
+  textarea.cols = 80;
+}
+
+function loadNew() {
+  browser.storage.local.get({
+    translatedWords: [] // the default value is an empty array
+  }).then((obj) => { 
+    setPage(obj.translatedWords.join("\n"), obj.translatedWords.length + 3);
+  });
+}
+
+window.onload = () => {
+  document.getElementById("clearWords").addEventListener("click", () => {
+    browser.storage.local.clear();
+    setPage("", 3);
+  });
+  document.getElementById("saveWords").addEventListener("click", () => {
+    browser.storage.local.clear();
+    let textToSave = document.getElementById("editField").value;
+    let words = textToSave.split('\n');
+    saveWords(words, loadNew);
+  });
+  document.getElementById("addWord").addEventListener("click", () => {
+    let translatee = document.getElementById("translatee").value;
+    let translated = document.getElementById("translated").value;
+    if(translatee === "" && translated === "") {
+      return;
+    }
+    document.getElementById("translatee").value = "";
+    document.getElementById("translated").value = "";
+    saveWord(translatee, translated, loadNew);
+  });
+}
+
+loadNew();
