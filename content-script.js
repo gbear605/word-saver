@@ -20,21 +20,67 @@ for (row of document.querySelectorAll("table.WRD > tbody > tr")) {
   row.appendChild(saveButton);
 }
 
+
+function processWord(translateBox, translateInfo, language) {
+  let word;
+  if(translateBox.childNodes.length == 0) {
+    word = translateBox.textContent;
+  } else {
+    word = translateBox.children[0].textContent;
+  }
+  word = word.trim().replace("⇒","");
+
+  if(language == "fr") {
+    if(translateInfo == "nm") {
+      word = "un ".concat(word)
+    } else if(translateInfo == "nf") {
+      word = "une ".concat(word)
+    }
+  }
+
+  if(language == "de") {
+    if(translateInfo == "Nm") {
+      word = "der ".concat(word)
+    } else if(translateInfo == "Nn") {
+      word = "das ".concat(word)
+    } else if(translateInfo == "Nf") {
+      word = "die ".concat(word)
+    }
+  }
+
+  if(language == "es") {
+    if(translateInfo == "nm") {
+      word = "el ".concat(word)
+    } else if(translateInfo == "nf") {
+      word = "le ".concat(word)
+    }
+  }
+
+  if (word.includes(", also UK")) {
+    word = word.substring(0, word.indexOf(', also UK'));
+  }
+
+  return word;
+}
+
+
 function makeSaveWordFunction(translateeRow, translatedRow) {
+
+  
+
   return function() {
     let langString = translateeRow.id.split(":")[0];
     let fromLanguage = langString[0] + langString[1];
     let toLanguage = langString[2] + langString[3];
 
-    let translatee = translateeRow.children[0].firstChild.textContent.trim().replace("⇒","");
-    let translated = translatedRow.children[2].firstChild.textContent.trim().replace("⇒","");
-    if (translatee.includes(", also UK")) {
-      translatee = translatee.substring(0, translatee.indexOf(', also UK'));
-    }
-    console.log("Saving word");
-    if (translated.includes(", also UK")) {
-      translated = translated.substring(0, translated.indexOf(', also UK'));
-    }
+    let translateeInfo = translateeRow.children[0].children[1].firstChild.textContent;
+    let translatedInfo = translatedRow.children[2].children[0].firstChild.textContent;
+
+    let translateeBox = translateeRow.children[0].firstChild;
+    let translatedBox = translatedRow.children[2].firstChild;
+
+    let translatee = processWord(translateeBox, translateeInfo, fromLanguage);
+    let translated = processWord(translatedBox, translatedInfo, toLanguage);
 
     console.log("Translated " + translatee + " to " + translated);
     browser.runtime.sendMessage(
