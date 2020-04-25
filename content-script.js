@@ -52,7 +52,7 @@ function processWord(translateBox, translateInfo, language) {
     if(translateInfo == "nm") {
       word = "el ".concat(word)
     } else if(translateInfo == "nf") {
-      word = "le ".concat(word)
+      word = "la ".concat(word)
     }
   }
 
