@@ -23,10 +23,10 @@ for (row of document.querySelectorAll("table.WRD > tbody > tr")) {
 
 function processWord(translateBox, translateInfo, language) {
   let word;
-  if(translateBox.childNodes.length == 0 || (translateBox.children != undefined && translateBox.children.length == 0)) {
+  if(translateBox.childNodes.length == 0) {
     word = translateBox.textContent;
   } else {
-    word = translateBox.children[0].textContent;
+    word = Array.prototype.slice.call(translateBox.childNodes).filter((node) => node.textContent != "")[0].textContent;
   }
   word = word.trim().replace("⇒","");
 
