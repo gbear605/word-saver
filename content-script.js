@@ -20,6 +20,10 @@ for (row of document.querySelectorAll("table.WRD > tbody > tr")) {
   row.appendChild(saveButton);
 }
 
+// From https://stackoverflow.com/a/26927463
+function isVowel(x) {
+  return /[aeiouAEIOU]/.test(x);
+}
 
 function processWord(translateBox, translateInfo, language) {
   let word;
@@ -35,6 +39,19 @@ function processWord(translateBox, translateInfo, language) {
       word = "un ".concat(word)
     } else if(translateInfo == "nf") {
       word = "une ".concat(word)
+    }
+  }
+
+  if(language == "en") {
+    if(translateInfo == "vi" || translateInfo == "vtr") {
+      word = "to ".concat(word)
+    }
+    if(translateInfo == "n") {
+      if(isVowel(word[0])) {
+        return "an ".concat(word)
+      } else {
+        return "a ".concat(word)
+      }
     }
   }
 
