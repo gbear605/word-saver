@@ -1,7 +1,52 @@
+if(typeof browser === 'undefined') {
+  browser = chrome
+}
+
+function setStorage(translatedWords, callback) {
+  let storageSetCall;
+  if(typeof chrome !== 'undefined') {
+    // Chrome
+    storageSetCall = new Promise(function(resolve) {
+      browser.storage.local.set({translatedWords}, (obj) => {
+        resolve(obj);
+      })
+    });
+  } else {
+    // Firefox
+    storageSetCall = browser.storage.local.set({translatedWords})
+  }
+    
+  storageSetCall.then(() => {
+    console.log(translatedWords);
+    if(callback != null) {
+      callback();
+    }
+  }, (error) => {
+    console.log("Error: " + error);
+  });
+}
+
 function saveWords(words, callback) {
-  browser.storage.local.get({
-    translatedWords: [] // the default value is an empty array
-  }).then((obj) => {
+
+  let translatedWordsCall;
+  if(typeof chrome !== 'undefined') {
+    // Chrome
+    translatedWordsCall = new Promise(function(resolve) {
+      browser.storage.local.get(['translatedWords'], (obj) => { 
+        if(!obj.hasOwnProperty('translatedWords')) {
+          obj = { translatedWords: [] };
+        }
+        resolve(obj);
+      })
+    });
+  } else {
+    // Firefox
+    translatedWordsCall = browser.storage.local.get({
+      translatedWords: [] // the default value is an empty array
+    })
+  }
+
+  translatedWordsCall.then((obj) => {
     let translatedWords = obj.translatedWords;
 
     for (word of words) {
@@ -10,24 +55,34 @@ function saveWords(words, callback) {
       translatedWords.push(toAdd);
       console.log("Adding " + toAdd);
     }
-      
-    browser.storage.local.set({translatedWords}).then(() => {
-      console.log(translatedWords);
-      if(callback != null) {
-        callback();
-      }
-    }, (error) => {
-      console.log("Error: " + error);
-    });
+
+    setStorage(translatedWords, callback)
+    
   }, (error) => {
     console.log("Error: " + error);
   });
 }
 
 function saveWord(translatee, translated, callback) {
-  browser.storage.local.get({
-    translatedWords: [] // the default value is an empty array
-  }).then((obj) => {
+  let translatedWordsCall;
+  if(typeof chrome !== 'undefined') {
+    // Chrome
+    translatedWordsCall = new Promise(function(resolve) {
+      browser.storage.local.get(['translatedWords'], (obj) => { 
+        if(!obj.hasOwnProperty('translatedWords')) {
+          obj = { translatedWords: [] };
+        }
+        resolve(obj);
+      })
+    });
+  } else {
+    // Firefox
+    translatedWordsCall = browser.storage.local.get({
+      translatedWords: [] // the default value is an empty array
+    })
+  }
+
+  translatedWordsCall.then((obj) => {
     let translatedWords = obj.translatedWords;
 
     let toAdd = `${translatee}\t${translated}`;
@@ -37,15 +92,8 @@ function saveWord(translatee, translated, callback) {
     if(!translatedWords.includes(toAdd) && !translatedWords.includes(toAddAlt)) {
       translatedWords.push(toAdd);
       console.log("Adding " + toAdd);
-    
-      browser.storage.local.set({translatedWords}).then(() => {
-        console.log(translatedWords);
-        if(callback != null) {
-          callback();
-        }
-      }, (error) => {
-        console.log("Error: " + error);
-      });
+
+      setStorage(translatedWords, callback)
     }
   }, (error) => {
     console.log("Error: " + error);
@@ -61,11 +109,23 @@ function setPage(text, numRows) {
 }
 
 function loadNew() {
-  browser.storage.local.get({
-    translatedWords: [] // the default value is an empty array
-  }).then((obj) => { 
-    setPage(obj.translatedWords.join("\n"), obj.translatedWords.length + 3);
-  });
+  if(typeof chrome !== 'undefined') {
+    // Chrome
+    browser.storage.local.get(['translatedWords'], (obj) => { 
+      if(!obj.hasOwnProperty('translatedWords')) {
+        obj = { translatedWords: [] }
+      }
+      setPage(obj.translatedWords.join("\n"), obj.translatedWords.length + 3);
+    });
+  } else {
+    // Firefox
+    browser.storage.local.get({
+      translatedWords: [] // the default value is an empty array
+    }).then((obj) => { 
+      setPage(obj.translatedWords.join("\n"), obj.translatedWords.length + 3);
+    });
+  }
+  
 }
 
 window.onload = () => {

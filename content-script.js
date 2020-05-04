@@ -27,10 +27,18 @@ function isVowel(x) {
 
 function processWord(translateBox, translateInfo, language) {
   let word;
+
   if(translateBox.childNodes.length == 0) {
     word = translateBox.textContent;
   } else {
-    word = Array.prototype.slice.call(translateBox.childNodes).filter((node) => node.textContent != "")[0].textContent;
+    word = Array.prototype.slice.call(translateBox.childNodes)
+                .filter((node) => node.textContent != "" 
+                               && node.className != "conjugate"
+                               && node.className != "POS2"
+                               && node.className != "tooltip POS2")
+                .map((node) => node.textContent)
+                .join("")
+                .trim();
   }
   word = word.trim().replace("⇒","");
 
@@ -43,7 +51,7 @@ function processWord(translateBox, translateInfo, language) {
   }
 
   if(language == "en") {
-    if(translateInfo == "vi" || translateInfo == "vtr") {
+    if(translateInfo.includes("vi") || translateInfo.includes("vtr")) {
       word = "to ".concat(word)
     }
     if(translateInfo == "n") {
@@ -67,9 +75,9 @@ function processWord(translateBox, translateInfo, language) {
 
   if(language == "es") {
     if(translateInfo == "nm") {
-      word = "el ".concat(word)
+      word = "un ".concat(word)
     } else if(translateInfo == "nf") {
-      word = "la ".concat(word)
+      word = "una ".concat(word)
     }
   }
 
@@ -90,16 +98,19 @@ function makeSaveWordFunction(translateeRow, translatedRow) {
     let fromLanguage = langString[0] + langString[1];
     let toLanguage = langString[2] + langString[3];
 
-    let translateeInfo = translateeRow.children[0].children[1].firstChild.textContent;
-    let translatedInfo = translatedRow.children[2].children[0].firstChild.textContent;
+    let translateeInfo = translateeRow.childNodes[0].querySelector(".POS2").childNodes[0].textContent;
+    let translatedInfo = translatedRow.childNodes[2].querySelector(".POS2").childNodes[0].textContent;
 
     let translateeBox = translateeRow.children[0].firstChild;
-    let translatedBox = translatedRow.children[2].firstChild;
+    let translatedBox = translatedRow.children[2];
 
     let translatee = processWord(translateeBox, translateeInfo, fromLanguage);
     let translated = processWord(translatedBox, translatedInfo, toLanguage);
 
     console.log("Translated " + translatee + " to " + translated);
+    if(typeof browser === 'undefined') {
+      browser = chrome
+    }
     browser.runtime.sendMessage(
       {
         "translatee": translatee,
