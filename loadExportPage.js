@@ -17,6 +17,9 @@ function saveWords(words, callback) {
     let translatedWords = obj.translatedWords;
 
     for (word of words) {
+      if(word === "") {
+        continue;
+      }
       let parts = word.split('\t');
       let toAdd = `${parts[0]}\t${parts[1]}`;
       translatedWords.push(toAdd);
@@ -79,11 +82,24 @@ window.onload = () => {
     let words = textToSave.split('\n');
     saveWords(words, loadNew);
   });
-  document.getElementById("addWord").addEventListener("click", () => {
+  document.getElementById("addWord").addEventListener("click", (event) => {
+    event.preventDefault();
+    debugger;
     let translatee = document.getElementById("translatee").value;
     let translated = document.getElementById("translated").value;
-    if(translatee === "" && translated === "") {
+    if(translatee === "" || translated === "") {
+      document.getElementsByClassName("addWordError")[0].removeAttribute("hidden");
+      document.getElementsByClassName("addWordError")[0].removeAttribute("aria-hidden");
+      if(translatee === "") {
+        document.getElementById("translatee").classList.add("input-invalid")
+      }
+      if(translated === "") {
+        document.getElementById("translated").classList.add("input-invalid")
+      }
       return;
+    } else {
+      document.getElementsByClassName("addWordError")[0].setAttribute("hidden", true);
+      document.getElementsByClassName("addWordError")[0].setAttribute("aria-hidden", true);
     }
     document.getElementById("translatee").value = "";
     document.getElementById("translated").value = "";
