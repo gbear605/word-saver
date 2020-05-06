@@ -1,3 +1,8 @@
+// From https://stackoverflow.com/a/26927463
+function isVowel(x) {
+  return /[aeiouAEIOU]/.test(x);
+}
+
 function processWord(word, translateInfo, language) {
   word = word.trim().replace("⇒","");
 

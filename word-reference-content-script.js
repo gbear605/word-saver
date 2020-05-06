@@ -20,11 +20,6 @@ for (row of document.querySelectorAll("table.WRD > tbody > tr")) {
   row.appendChild(saveButton);
 }
 
-// From https://stackoverflow.com/a/26927463
-function isVowel(x) {
-  return /[aeiouAEIOU]/.test(x);
-}
-
 function processTranslateBox(translateBox) {
 
   if(translateBox.childNodes.length == 0) {
