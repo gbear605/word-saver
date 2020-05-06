@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "WordReference Saver",
   "description": "Save words from WordReference and Wiktionary to a text list.",
-  "version": "1.4",
+  "version": "1.4.2",
   "homepage_url": "https://greenwichmeanti.me/wordreference",
 
   "background": {
@@ -33,7 +33,16 @@
       "js": [
         "browser-polyfill.js",
         "general-parsing.js",
-        "wiktionary-content-script.js"
+        "en-wiktionary-content-script.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["*://sv.wiktionary.org/*"],
+      "js": [
+        "browser-polyfill.js",
+        "general-parsing.js",
+        "sv-wiktionary-content-script.js"
       ],
       "run_at": "document_end"
     }

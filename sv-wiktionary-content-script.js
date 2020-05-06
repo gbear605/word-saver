@@ -1,32 +1,56 @@
-for (section of document.querySelectorAll(".headword")) {
-  for (row of section.parentNode.nextElementSibling.childNodes) {
-    if (row.localName != "li") {
+let toLanguage = document.URL.split("://")[1].split('.')[0];
+
+for (section of document.querySelectorAll("p ~ ol")) {
+
+  // Find the word
+  
+  let node = section;
+  while(node != null && node.localName != "p") {
+    node = node.previousElementSibling;
+  }
+
+  let translateeWord = node.childNodes[0].textContent;
+  let genderNode = node.querySelector(".gender");
+  let translateeGender = null;
+  if(genderNode != null) {
+    translateeGender = genderNode.textContent;
+  }
+
+  console.log(translateeGender)
+
+  while(node != null && node.localName != "h3") {
+    node = node.previousElementSibling;
+  }
+  let partOfSpeech = node.querySelector(".mw-headline").textContent;
+
+  console.log(partOfSpeech);
+
+  while(node != null && node.localName != "h2") {
+    node = node.previousElementSibling;
+  }
+  let fromLanguage = node.querySelector(".mw-headline").textContent;
+
+  console.log(fromLanguage);
+
+  for (row of section.childNodes) {
+
+    if (row.localName != "li") {      
       continue;
+
     }
 
     console.log(row);
 
-    let fromLanguage = row.parentElement.previousElementSibling.childNodes[0].lang;
+    let translatedWord = Array.prototype.slice.apply(row.childNodes).filter((node) => node.localName != "dl" && node.localName != "span" && node.localName != "ul").map(node => node.textContent).join("").trim().replace("  ", " ");
 
-    let toLanguage = document.URL.split("://")[1].split('.')[0];
-
-    let translateeWord = row.parentElement.previousElementSibling.childNodes[0].textContent.replace("  ", " ");
-
-    let partOfSpeech = row.parentElement.previousElementSibling.previousElementSibling.childNodes[0].textContent;
-
-    let translateeGender = null;
-    if(partOfSpeech == "Noun" && row.parentElement.previousElementSibling.childNodes.length > 2) {
-      translateeGender = row.parentElement.previousElementSibling.childNodes[2].textContent;
-    }
-    let translatedWord = Array.prototype.slice.apply(  row.childNodes).filter((node) => node.localName != "dl" && node.localName != "span" && node.localName != "ul").map(node => node.textContent).join("").trim().replace("  ", " ");
-
-    console.log(partOfSpeech);
+    debugger;
 
     var saveButton = document.createElement("input");
     saveButton.type = "button";
     saveButton.value = "Save";
     saveButton.onclick = makeSaveWordFunction(toLanguage, fromLanguage, translateeWord, translatedWord, partOfSpeech, translateeGender);
     row.appendChild(saveButton);
+
   }
 }
 
