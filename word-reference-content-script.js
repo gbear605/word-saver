@@ -39,9 +39,6 @@ function processTranslateBox(translateBox) {
 
 
 function makeSaveWordFunction(translateeRow, translatedRow) {
-
-  
-
   return function() {
     let langString = translateeRow.id.split(":")[0];
     let fromLanguage = langString[0] + langString[1];
