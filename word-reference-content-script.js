@@ -25,67 +25,21 @@ function isVowel(x) {
   return /[aeiouAEIOU]/.test(x);
 }
 
-function processWord(translateBox, translateInfo, language) {
-  let word;
+function processTranslateBox(translateBox) {
 
   if(translateBox.childNodes.length == 0) {
-    word = translateBox.textContent;
+    return translateBox.textContent;
   } else {
-    word = Array.prototype.slice.call(translateBox.childNodes)
+    return Array.prototype.slice.call(translateBox.childNodes)
                 .filter((node) => node.textContent != "" 
                                && node.className != "conjugate"
                                && node.className != "POS2"
-                               && node.className != "tooltip POS2")
+                               && node.className != "tooltip POS2"
+                               && node.localName != "span")
                 .map((node) => node.textContent)
                 .join("")
                 .trim();
   }
-  word = word.trim().replace("⇒","");
-
-  if(language == "fr") {
-    if(translateInfo == "nm") {
-      word = "un ".concat(word)
-    } else if(translateInfo == "nf") {
-      word = "une ".concat(word)
-    }
-  }
-
-  if(language == "en") {
-    if(translateInfo.includes("vi") || translateInfo.includes("vtr")) {
-      word = "to ".concat(word)
-    }
-    if(translateInfo == "n") {
-      if(isVowel(word[0])) {
-        return "an ".concat(word)
-      } else {
-        return "a ".concat(word)
-      }
-    }
-  }
-
-  if(language == "de") {
-    if(translateInfo == "Nm") {
-      word = "der ".concat(word)
-    } else if(translateInfo == "Nn") {
-      word = "das ".concat(word)
-    } else if(translateInfo == "Nf") {
-      word = "die ".concat(word)
-    }
-  }
-
-  if(language == "es") {
-    if(translateInfo == "nm") {
-      word = "un ".concat(word)
-    } else if(translateInfo == "nf") {
-      word = "una ".concat(word)
-    }
-  }
-
-  if (word.includes(", also UK")) {
-    word = word.substring(0, word.indexOf(', also UK'));
-  }
-
-  return word;
 }
 
 
@@ -104,8 +58,8 @@ function makeSaveWordFunction(translateeRow, translatedRow) {
     let translateeBox = translateeRow.children[0].firstChild;
     let translatedBox = translatedRow.children[2];
 
-    let translatee = processWord(translateeBox, translateeInfo, fromLanguage);
-    let translated = processWord(translatedBox, translatedInfo, toLanguage);
+    let translatee = processWord(processTranslateBox(translateeBox), translateeInfo, fromLanguage);
+    let translated = processWord(processTranslateBox(translatedBox), translatedInfo, toLanguage);
 
     console.log("Translated " + translatee + " to " + translated);
     if(typeof browser === 'undefined') {

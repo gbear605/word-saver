@@ -1,9 +1,5 @@
 let notifId = "wordreference";
 
-if(typeof browser === 'undefined') {
-  browser = chrome
-}
-
 function openExportPage() {
   browser.tabs.create({
     "url": "/exportPage.html"
@@ -11,20 +7,7 @@ function openExportPage() {
 }
 
 function setStorage(translatedWords, callback) {
-  let storageSetCall;
-  if(typeof chrome !== 'undefined') {
-    // Chrome
-    storageSetCall = new Promise(function(resolve) {
-      browser.storage.local.set({translatedWords}, (obj) => {
-        resolve(obj);
-      })
-    });
-  } else {
-    // Firefox
-    storageSetCall = browser.storage.local.set({translatedWords})
-  }
-    
-  storageSetCall.then(() => {
+  browser.storage.local.set({translatedWords}).then(() => {
     console.log(translatedWords);
     if(callback != null) {
       callback();
@@ -35,25 +18,9 @@ function setStorage(translatedWords, callback) {
 }
 
 function saveWord(translatee, translated) {
-  let translatedWordsCall;
-  if(typeof chrome !== 'undefined') {
-    // Chrome
-    translatedWordsCall = new Promise(function(resolve) {
-      browser.storage.local.get(['translatedWords'], (obj) => { 
-        if(!obj.hasOwnProperty('translatedWords')) {
-          obj = { translatedWords: [] };
-        }
-        resolve(obj);
-      })
-    });
-  } else {
-    // Firefox
-    translatedWordsCall = browser.storage.local.get({
-      translatedWords: [] // the default value is an empty array
-    })
-  }
-
-  translatedWordsCall.then((obj) => {
+  browser.storage.local.get({
+    translatedWords: [] // the default value is an empty array
+  }).then((obj) => {
     let translatedWords = obj.translatedWords;
 
     let toAdd = `${translatee}\t${translated}`;

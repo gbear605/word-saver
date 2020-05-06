@@ -7,6 +7,8 @@
 
   "background": {
     "scripts": [
+      "browser-polyfill.js",
+      "general-parsing.js",
       "background.js"
     ]
   },
@@ -19,7 +21,11 @@
   "content_scripts": [
     {
       "matches": ["*://*.wordreference.com/*"],
-      "js": ["content-script.js"],
+      "js": [
+        "browser-polyfill.js",
+        "general-parsing.js",
+        "word-reference-content-script.js"
+      ],
       "run_at": "document_end"
     }
   ],

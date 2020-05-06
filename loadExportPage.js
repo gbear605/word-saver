@@ -1,22 +1,5 @@
-if(typeof browser === 'undefined') {
-  browser = chrome
-}
-
 function setStorage(translatedWords, callback) {
-  let storageSetCall;
-  if(typeof chrome !== 'undefined') {
-    // Chrome
-    storageSetCall = new Promise(function(resolve) {
-      browser.storage.local.set({translatedWords}, (obj) => {
-        resolve(obj);
-      })
-    });
-  } else {
-    // Firefox
-    storageSetCall = browser.storage.local.set({translatedWords})
-  }
-    
-  storageSetCall.then(() => {
+  browser.storage.local.set({translatedWords}).then(() => {
     console.log(translatedWords);
     if(callback != null) {
       callback();
@@ -28,25 +11,9 @@ function setStorage(translatedWords, callback) {
 
 function saveWords(words, callback) {
 
-  let translatedWordsCall;
-  if(typeof chrome !== 'undefined') {
-    // Chrome
-    translatedWordsCall = new Promise(function(resolve) {
-      browser.storage.local.get(['translatedWords'], (obj) => { 
-        if(!obj.hasOwnProperty('translatedWords')) {
-          obj = { translatedWords: [] };
-        }
-        resolve(obj);
-      })
-    });
-  } else {
-    // Firefox
-    translatedWordsCall = browser.storage.local.get({
-      translatedWords: [] // the default value is an empty array
-    })
-  }
-
-  translatedWordsCall.then((obj) => {
+  browser.storage.local.get({
+    translatedWords: [] // the default value is an empty array
+  }).then((obj) => {
     let translatedWords = obj.translatedWords;
 
     for (word of words) {
@@ -64,25 +31,9 @@ function saveWords(words, callback) {
 }
 
 function saveWord(translatee, translated, callback) {
-  let translatedWordsCall;
-  if(typeof chrome !== 'undefined') {
-    // Chrome
-    translatedWordsCall = new Promise(function(resolve) {
-      browser.storage.local.get(['translatedWords'], (obj) => { 
-        if(!obj.hasOwnProperty('translatedWords')) {
-          obj = { translatedWords: [] };
-        }
-        resolve(obj);
-      })
-    });
-  } else {
-    // Firefox
-    translatedWordsCall = browser.storage.local.get({
-      translatedWords: [] // the default value is an empty array
-    })
-  }
-
-  translatedWordsCall.then((obj) => {
+  browser.storage.local.get({
+    translatedWords: [] // the default value is an empty array
+  }).then((obj) => {
     let translatedWords = obj.translatedWords;
 
     let toAdd = `${translatee}\t${translated}`;
@@ -109,22 +60,11 @@ function setPage(text, numRows) {
 }
 
 function loadNew() {
-  if(typeof chrome !== 'undefined') {
-    // Chrome
-    browser.storage.local.get(['translatedWords'], (obj) => { 
-      if(!obj.hasOwnProperty('translatedWords')) {
-        obj = { translatedWords: [] }
-      }
-      setPage(obj.translatedWords.join("\n"), obj.translatedWords.length + 3);
-    });
-  } else {
-    // Firefox
-    browser.storage.local.get({
-      translatedWords: [] // the default value is an empty array
-    }).then((obj) => { 
-      setPage(obj.translatedWords.join("\n"), obj.translatedWords.length + 3);
-    });
-  }
+  browser.storage.local.get({
+    translatedWords: [] // the default value is an empty array
+  }).then((obj) => {
+    setPage(obj.translatedWords.join("\n"), obj.translatedWords.length + 3);
+  });
   
 }
 
