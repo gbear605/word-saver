@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "WordReference Saver",
+  "name": "Word Saver",
   "description": "Save words from WordReference and Wiktionary to a text list.",
   "version": "1.4.3",
-  "homepage_url": "https://greenwichmeanti.me/wordreference",
+  "homepage_url": "https://greenwichmeanti.me/wordsaver",
 
   "background": {
     "scripts": [
