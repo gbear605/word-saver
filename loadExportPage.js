@@ -77,6 +77,7 @@ window.onload = () => {
     setPage("", 3);
   });
   document.getElementById("saveWords").addEventListener("click", () => {
+    event.preventDefault();
     browser.storage.local.clear();
     let textToSave = document.getElementById("editField").value;
     let words = textToSave.split('\n');
@@ -84,7 +85,6 @@ window.onload = () => {
   });
   document.getElementById("addWord").addEventListener("click", (event) => {
     event.preventDefault();
-    debugger;
     let translatee = document.getElementById("translatee").value;
     let translated = document.getElementById("translated").value;
     if(translatee === "" || translated === "") {
