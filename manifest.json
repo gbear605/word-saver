@@ -2,16 +2,24 @@
   "manifest_version": 2,
   "name": "Word Saver",
   "description": "Save words from WordReference and Wiktionary to a text list.",
-  "version": "1.4.4",
+  "version": "1.5.1",
   "homepage_url": "https://greenwichmeanti.me/wordsaver",
 
   "background": {
     "scripts": [
       "browser-polyfill.js",
       "general-parsing.js",
+      "context-menus.js",
       "background.js"
     ]
   },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{389d5e14-b6b7-46c2-a379-e01f727e4d2b}"
+    }
+  },
+
 
   "icons": {
     "48": "icons/page-48.png",
@@ -56,6 +64,7 @@
     "*://*.wordreference.com/*",
     "storage",
     "unlimitedStorage",
-    "notifications"
+    "notifications",
+    "contextMenus"
   ]
 }

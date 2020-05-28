@@ -33,27 +33,34 @@
   </head>
 
   <body>
-    <h1>Export Word Saver Data</h1>
-    <button id="clearWords"> Clear Words </button> <br /> <br /> <br />
-    <pre id="displayArea"> </pre> <br /> <br />
-    <form class="editWordsForm">
-      <label for="editField"> Edit the saved words </label>
-      <textarea id="editField"> </textarea> <br />
-      <input type="submit" id="saveWords"> Add Word </button>
-    </form>
-    <form class="addWordForm">
-      <h4> Add Word: </h4>
-      <div>
-        <label for="translatee"> Translated word </label>
-        <input type="text" id="translatee" value=""/> 
-      </div>
-      <div>
-        <label for="translated"> Translation </label>
-        <input type="text" id="translated" value=""/> 
-      </div>
-      <input type="submit" id="addWord"> Add Word </button>
-      <div class="addWordError" hidden> You need to fill in both words to be saved </div>
-    </form>
+    <div id="exportData">
+      <h1>Export Word Saver Data</h1>
+      <button id="clearWords"> Clear Words </button> <br /> <br /> <br />
+      <pre id="displayArea"> </pre> <br /> <br />
+      <form class="editWordsForm">
+        <label for="editField"> Edit the saved words </label>
+        <textarea id="editField"> </textarea> <br />
+        <input type="submit" id="saveWords"> Add Word </button>
+      </form>
+      <form class="addWordForm">
+        <h4> Add Word: </h4>
+        <div>
+          <label for="translatee"> Translated word </label>
+          <input type="text" id="translatee" value=""/>
+        </div>
+        <div>
+          <label for="translated"> Translation </label>
+          <input type="text" id="translated" value=""/>
+        </div>
+        <input type="submit" id="addWord"> Add Word </button>
+        <div class="addWordError" hidden> You need to fill in both words to be saved </div>
+      </form>
+    </div>
+    <!--<div id="configureSearch">
+      <h1>Configure search buttons</h1>
+      <h3>Current search options:</h3>
+      <ul id="currentSearchList"></ul>
+    </div>-->
   </body>
 
 </html>
