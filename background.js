@@ -50,11 +50,17 @@ function notify(message) {
   let randNum = Math.floor(Math.random() * 100000000) + 1;
   let customNotifId = notifId + randNum;
 
+  let notifMessage;
+  if (fromLanguage != null && toLanguage != null) {
+    notifMessage = "Translated " + translatee + " (" + fromLanguage + ") to " + translated + " (" + toLanguage + ")";
+  } else {
+    notifMessage = "Translated " + translatee + " to " + translated;
+  }
   browser.notifications.create(customNotifId, {
     "type": "basic",
     "iconUrl": "icons/page-48.png",
     "title": "WordReference",
-    "message": "Translated " + translatee + " (" + fromLanguage + ") to " + translated + " (" + toLanguage + ")"
+    "message": notifMessage
   });
 
   window.setTimeout(() => {
