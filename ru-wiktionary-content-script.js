@@ -8,7 +8,7 @@ for (section of headerElements) {
 
     console.log(row);
 
-    let translateeWord = decodeURI(document.URL.split('/').slice(-1)[0]); // Gets the last element of the url
+    let translateeWord = decodeURI(document.URL.split('/').slice(-1)[0]).split('#')[0]; // Gets the last element of the url
 
     let ital = null;
     let nodesToKeep = [];

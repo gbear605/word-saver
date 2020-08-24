@@ -64,11 +64,38 @@
       "run_at": "document_end"
     },
     {
+      "matches": ["*://de.wiktionary.org/*"],
+      "js": [
+        "browser-polyfill.js",
+        "general-parsing.js",
+        "de-wiktionary-content-script.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["*://pl.wiktionary.org/*"],
+      "js": [
+        "browser-polyfill.js",
+        "general-parsing.js",
+        "pl-wiktionary-content-script.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
       "matches": ["*://www.germaneveryday.com/*"],
       "js": [
         "browser-polyfill.js",
         "general-parsing.js",
         "german-everyday-content-script.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["*://*.bab.la/*"],
+      "js": [
+        "browser-polyfill.js",
+        "general-parsing.js",
+        "babla-content-script.js"
       ],
       "run_at": "document_end"
     }
@@ -80,6 +107,9 @@
 
   "permissions": [
     "*://*.wordreference.com/*",
+    "*://*.wiktionary.org/*",
+    "*://*.germaneveryday.com/*",
+    "*://*.bab.la/*",
     "storage",
     "unlimitedStorage",
     "notifications",

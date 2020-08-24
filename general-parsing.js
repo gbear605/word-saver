@@ -52,6 +52,16 @@ function processWord(word, translateInfo, language) {
   return word;
 }
 
+function convertFullNameToISO(fullName) {
+    for (const [shortName, info] of Object.entries(isoLangs)) {
+      if (info.name == fullName) {
+            return shortName
+        }
+    }
+    console.log("Couldn't convert " + fullName)
+    return fullName;
+}
+
 /**
  * From https://stackoverflow.com/questions/3217492/list-of-language-codes-in-yaml-or-json
  * @author Phil Teare
