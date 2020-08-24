@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Word Saver",
   "description": "Save words from WordReference and Wiktionary to a text list.",
-  "version": "1.7",
+  "version": "1.8",
   "homepage_url": "https://greenwichmeanti.me/wordsaver",
 
   "background": {
@@ -98,6 +98,15 @@
         "babla-content-script.js"
       ],
       "run_at": "document_end"
+    },
+    {
+      "matches": ["*://*.glosbe.com/*"],
+      "js": [
+        "browser-polyfill.js",
+        "general-parsing.js",
+        "glosbe-content-script.js"
+      ],
+      "run_at": "document_end"
     }
   ],
 
@@ -110,6 +119,7 @@
     "*://*.wiktionary.org/*",
     "*://*.germaneveryday.com/*",
     "*://*.bab.la/*",
+    "*://*.glosbe.com/*",
     "storage",
     "unlimitedStorage",
     "notifications",

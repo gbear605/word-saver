@@ -1,6 +1,6 @@
 # Word Saver
 
-This extension saves words visited on WordReference (wordreference.com), Wiktionary (wiktionary.org), bab.la, and German Everyday (germaneveryday.com) to a text list. Currently the only Wiktionary sites supported are English, German, Polish, Russian, and Swedish.
+This extension saves words visited on WordReference (wordreference.com), Wiktionary (wiktionary.org), bab.la, Glosbe (glosbe.com), and German Everyday (germaneveryday.com) to a text list. Currently the only Wiktionary sites supported are English, German, Polish, Russian, and Swedish.
 
 This extension is not in any way associated with any of the sites that it supports.
 
@@ -14,5 +14,5 @@ Click on the extension's icon to see the list, which can then be copied and used
 
 ## Future Changes
 
-* Add support for Hebrew Wiktionary, glosbe.com
-* Add support for getting conjugations
+* Add support for Hebrew Wiktionary, 
+* Add support for extracting conjugations from Wiktionary pages
