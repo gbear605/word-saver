@@ -1,0 +1,30 @@
+image: ubuntu/lts
+packages:
+  - npm
+  - jq
+sources:
+  - https://git.sr.ht/~gbear605/word-saver
+environment:
+  deploy: root@greenwichmeanti.me
+  deploypath: /var/www/greenwichmeanti.me/public_html/wordsaver
+secrets:
+  - ecfd2bcd-aa06-44cb-8e3f-068751a71ce6
+  - 9ec2af9f-3ed8-4c2f-b02c-53d0daee8fe6
+  - 0755116a-2598-41d7-b910-e8d6d97410b3
+tasks:
+  - setup: |
+      npm install --global web-ext
+  - build: |
+      cd word-saver
+      web-ext lint
+      web-ext build
+  - deploy: |
+      if [[ $(git branch --show-current) = main ]]
+      then
+        cd word-saver
+        set +x 
+        web-ext sign --api-key $(cat ~/jwt_issuer) --api-secret $(cat  ~/jwt_secret)
+        set -x
+        scp ./web-ext-artifacts/word_saver-$(jq -r .version manifest.json).zip $deploy:$deploypath
+        scp ./web-ext-artifacts/word_saver-$(jq -r .version manifest.json)-an+fx.xpi $deploy:$deploypath
+      fi

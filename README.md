@@ -1,5 +1,7 @@
 # Word Saver
 
+[![builds.sr.ht status](https://builds.sr.ht/~gbear605/word-saver.svg)](https://builds.sr.ht/~gbear605/word-saver?)
+
 This extension saves words visited on WordReference (wordreference.com), Wiktionary (wiktionary.org), bab.la, Glosbe (glosbe.com), and German Everyday (germaneveryday.com) to a text list. Currently the only Wiktionary sites supported are English, German, Polish, Russian, and Swedish.
 
 This extension is not in any way associated with any of the sites that it supports.
