@@ -13,9 +13,8 @@ for (row of document.querySelectorAll("table.WRD > tbody > tr")) {
   }
   console.log(translateeRow);
   
-  var saveButton = document.createElement("input");
-  saveButton.type = "button";
-  saveButton.value = "Save";
+  var saveButton = document.createElement("button");
+  saveButton.textContent = "Save";
   saveButton.onclick = makeSaveWordFunction(translateeRow,row);
   row.appendChild(saveButton);
 }
