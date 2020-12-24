@@ -3,6 +3,7 @@ packages:
   - npm
   - jq
   - curl
+  - gtk+3.0
 sources:
   - https://git.sr.ht/~gbear605/word-saver
 secrets:
@@ -18,12 +19,14 @@ tasks:
       web-ext lint
       web-ext build
   - setup-test: |
-      curl --location "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | tar --extract --verbose --preserve-permissions --bzip2
+      curl --location "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux32&lang=en-US" | tar --extract --verbose --preserve-permissions --bzip2
       cd word-saver/tests
+      curl --location "https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz" | tar --extract --verbose --preserve-permissions -z
       npm install
   - test: |
       cd word-saver/tests
-      FIREFOX_BINARY = /home/build/firefox/firefox
+      export FIREFOX_BINARY=/home/build/firefox/firefox
+      export USE_HEADLESS=true
       node test.js
   - deploy: |
       cd word-saver
