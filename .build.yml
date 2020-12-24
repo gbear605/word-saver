@@ -30,7 +30,8 @@ tasks:
       node test.js
   - deploy: |
       cd word-saver
-      if [[ $(git branch --show-current) = main ]]
+      CURRENT_BRANCH=$(git branch --show-current)
+      if [[ "$CURRENT_BRANCH" = main ]]
       then
         set +x 
         web-ext sign --api-key $(cat ~/jwt_issuer) --api-secret $(cat  ~/jwt_secret)
