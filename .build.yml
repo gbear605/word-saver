@@ -1,17 +1,14 @@
 image: ubuntu/lts
-packages:
-  - npm
-  - jq
-  - curl
-  - gtk+3.0
 sources:
   - https://git.sr.ht/~gbear605/word-saver
 secrets:
   - ecfd2bcd-aa06-44cb-8e3f-068751a71ce6
   - 9ec2af9f-3ed8-4c2f-b02c-53d0daee8fe6
   - 0755116a-2598-41d7-b910-e8d6d97410b3
+shell: true
 tasks:
   - setup: |
+      false
       sudo npm config set progress=false
       sudo npm install --global web-ext || true
   - build: |
@@ -31,7 +28,7 @@ tasks:
   - deploy: |
       cd word-saver
       CURRENT_BRANCH=$(git branch --show-current)
-      if [[ "$CURRENT_BRANCH" = main ]]
+      if [[ $CURRENT_BRANCH = main ]]
       then
         set +x 
         web-ext sign --api-key $(cat ~/jwt_issuer) --api-secret $(cat  ~/jwt_secret)
