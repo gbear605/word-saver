@@ -22,6 +22,7 @@ tasks:
       curl --location "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | tar --extract --verbose --preserve-permissions --bzip2
       cd word-saver/tests
       curl --location "https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz" | tar --extract --verbose --preserve-permissions -z
+      npm config set progress=false
       npm install
   - test: |
       cd word-saver/tests
