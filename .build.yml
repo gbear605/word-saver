@@ -32,11 +32,17 @@ tasks:
   - deploy: |
       cd word-saver
       CURRENT_BRANCH=$(git show -s --pretty=%D HEAD | tr -s ', ' '\n' | grep -v HEAD | head -n1)
-      if [ $CURRENT_BRANCH = origin/main ]
+
+      MANIFEST_VERSION=$(jq -r .version manifest.json)
+      CURRENT_VERSION=$(curl https://greenwichmeanti.me/wordsaver/VERSION.txt)
+
+      if [ $CURRENT_BRANCH = origin/main ] && [ x$MANIFEST_VERSION != x$CURRENT_VERSION ]
       then
         set +x 
         web-ext sign --api-key $(cat ~/jwt_issuer) --api-secret $(cat  ~/jwt_secret)
         set -x
-        scp -o "StrictHostKeyChecking=no" ./web-ext-artifacts/word_saver-$(jq -r .version manifest.json).zip root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver
-        scp -o "StrictHostKeyChecking=no" ./web-ext-artifacts/word_saver-$(jq -r .version manifest.json)-an+fx.xpi root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver
+        echo $MANIFEST_VERSION > VERSION.txt
+        scp -o "StrictHostKeyChecking=no" ./web-ext-artifacts/word_saver-$MANIFEST_VERSION.zip root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver
+        scp -o "StrictHostKeyChecking=no" ./web-ext-artifacts/word_saver-$MANIFEST_VERSION-an+fx.xpi root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver
+        scp -o "StrictHostKeyChecking=no" ./VERSION.txt root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver
       fi
