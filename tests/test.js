@@ -6,8 +6,10 @@ const assert = require('assert').strict;
 const id = '{389d5e14-b6b7-46c2-a379-e01f727e4d2b}'
 const short_id = '389d5e14-b6b7-46c2-a379-e01f727e4d2b'
 
+const binary = process.env.FIREFOX_BINARY || '/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox'
+
 let firefoxOptions = new firefox.Options()
-    .setBinary('/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox')
+    .setBinary(binary)
     .setPreference('xpinstall.signatures.required', false)
     .setPreference('extensions.webextensions.uuids', '{"' + id + '": "' + short_id + '"}');
 

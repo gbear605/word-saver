@@ -2,9 +2,7 @@ image: ubuntu/lts
 packages:
   - npm
   - jq
-  - ubuntu-make
-  - firefox-dev
-  - firefox-geckodriver
+  - curl
 sources:
   - https://git.sr.ht/~gbear605/word-saver
 secrets:
@@ -19,8 +17,13 @@ tasks:
       cd word-saver
       web-ext lint
       web-ext build
+  - setup-test: |
+      curl --location "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | tar --extract --verbose --preserve-permissions --bzip2
+      cd word-saver/tests
+      npm install
   - test: |
       cd word-saver/tests
+      FIREFOX_BINARY = /home/build/firefox/firefox
       node test.js
   - deploy: |
       cd word-saver
