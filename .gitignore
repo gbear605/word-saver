@@ -2,3 +2,4 @@
 *.zip
 .DS_Store
 .web-extension-id
+node_modules/

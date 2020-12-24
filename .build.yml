@@ -2,6 +2,9 @@ image: ubuntu/lts
 packages:
   - npm
   - jq
+  - ubuntu-make
+  - firefox-dev
+  - firefox-geckodriver
 sources:
   - https://git.sr.ht/~gbear605/word-saver
 secrets:
@@ -16,6 +19,9 @@ tasks:
       cd word-saver
       web-ext lint
       web-ext build
+  - test: |
+      cd word-saver/tests
+      node test.js
   - deploy: |
       cd word-saver
       if [[ $(git branch --show-current) = main ]]

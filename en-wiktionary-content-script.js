@@ -4,8 +4,6 @@ for (section of document.querySelectorAll(".headword")) {
       continue;
     }
 
-    debugger;
-
     console.log(row);
 
     let fromLanguage = row.parentElement.previousElementSibling.childNodes[0].lang;
