@@ -13,7 +13,6 @@ secrets:
   - 0755116a-2598-41d7-b910-e8d6d97410b3
 tasks:
   - setup: |
-      false
       sudo npm config set progress=false
       sudo npm install --global web-ext || true
       sudo npm install --global chrome-webstore-upload-cli || true
@@ -35,7 +34,7 @@ tasks:
   - test: |
       cd word-saver/tests
       export FIREFOX_BINARY=/home/build/firefox/firefox
-      export CHROME_BINARY=chromium-browser
+      export CHROME_BINARY=/usr/bin/chromium-browser
       export USE_HEADLESS=true
       node test.js
   - deploy: |
