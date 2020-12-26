@@ -21,7 +21,10 @@ if (use_headless) {
 
 const version = JSON.parse(fs.readFileSync('../manifest.json', 'utf8')).version;
 
-let chromeOptions = new chrome.Options().addArguments("load-extension=..");
+const chromeBinary = process.env.CHROME_BINARY || '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+let chromeOptions = new chrome.Options()
+    .setChromeBinaryPath(chromeBinary)
+    .addArguments("load-extension=..");
 if (use_headless) {
   chromeOptions = chromeOptions.headless();
 }
