@@ -18,3 +18,8 @@ Click on the extension's icon to see the list, which can then be copied and used
 
 * Add support for Hebrew Wiktionary, 
 * Add support for extracting conjugations from Wiktionary pages
+
+## Running builds and tests
+
+- For configuring Chrome webstore upload, see https://github.com/DrewML/chrome-webstore-upload/blob/master/How%20to%20generate%20Google%20API%20keys.md
+- Download chromedriver versions from http://chromedriver.storage.googleapis.com/index.html ; needs to match the version of Chrome
