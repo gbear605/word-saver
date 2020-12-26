@@ -7,13 +7,6 @@
   }
 */
 
-console.log("test")
-
-// Based on https://stackoverflow.com/a/1026087
-function capitalizeFirstLetter([ first, ...rest ], locale = navigator.language) {
-  return [ first.toLocaleUpperCase(locale), ...rest ].join('');
-}
-
 browser.storage.sync.get({
 	context_menus_searches: [{
 		site: "wiktionary",
@@ -32,7 +25,6 @@ browser.storage.sync.get({
 			title += isoLangs[context_menu_search.primaryLanguage].name
 			title += " Wiktionary"
 		}
-		https://en.wiktionary.org/w/index.php?search=hello
 
 		browser.contextMenus.create({
 			id: context_menu_search.site + context_menu_search.primaryLanguage + context_menu_search.secondaryLanguage,

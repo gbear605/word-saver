@@ -3,6 +3,11 @@ function isVowel(x) {
   return /[aeiouAEIOU]/.test(x);
 }
 
+// Based on https://stackoverflow.com/a/1026087
+function capitalizeFirstLetter([ first, ...rest ], locale = navigator.language) {
+  return [ first.toLocaleUpperCase(locale), ...rest ].join('');
+}
+
 function saveWord(originalWord, definition, originalLanguage, definitionLanguage) {
     console.log("Matched " + originalWord + " to " + definition);
     if(typeof browser === 'undefined') {
