@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8">
     <script type="application/javascript" src="browser-polyfill.js"></script>
+    <script src="background.js"></script>
     <script src="loadExportPage.js"></script>
     <title>Export Word Saver Data</title>
     <style>
@@ -44,25 +45,44 @@
     </header>
     <div id="exportData">
       <h2> Export Data </h2>
-      <button id="clearWords"> Clear Words </button> <br /> <br /> <br />
+      <button id="clearWords"> Clear All Words </button>
+      <button id="clearSelectedWords"> Clear Selected Words </button> <br /> <br /> <br />
+      <form id="languageSelectors">
+        <select type="dropdown" id="firstLanguageSelector">
+          <option selected> All </option>
+        </select>
+        <label for="firstLanguageSelector">First language selector</label> <br />
+        <select type="dropdown" id="secondLanguageSelector">
+          <option selected> All </option>
+        </select>
+        <label for="secondLanguageSelector">Second language selector</label> <br />
+      </form>
       <pre id="displayArea"> </pre> <br /> <br />
       <form class="editWordsForm">
         <label for="editField"> Edit the saved words </label>
-        <textarea id="editField"> </textarea> <br />
+        <textarea id="editField"></textarea> <br />
         <input type="submit" id="saveWords" value="Save Words">
       </form>
       <form class="addWordForm">
         <h4> Add Word: </h4>
         <div>
-          <label for="originalWord"> definition word </label>
+          <label for="originalWord"> Original word </label>
           <input type="text" id="originalWord" value=""/>
         </div>
         <div>
-          <label for="definition"> Translation </label>
+          <label for="definition"> Translated word/definition </label>
           <input type="text" id="definition" value=""/>
         </div>
+        <div>
+          <label for="originalWordLanguage"> Language of original word (ISO code, eg. "en") </label>
+          <input type="text" id="originalWordLanguage" value=""/>
+        </div>
+        <div>
+          <label for="definitionLanguage"> Language of translated word/definition (ISO code, eg. "en") </label>
+          <input type="text" id="definitionLanguage" value=""/>
+        </div>
         <input type="submit" id="addWord" value="Add Word">
-        <div class="addWordError" hidden> You need to fill in both words to be saved </div>
+        <div class="addWordError" hidden> You need to fill in both words and both languages to be saved </div>
       </form>
     </div>
     <!--<div id="settings">

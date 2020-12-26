@@ -17,7 +17,7 @@ function setStorage(definitions, callback) {
   });
 }
 
-function saveWord(originalWord, definition, originalLanguage, definitionLanguage) {
+function saveWord(originalWord, definition, originalLanguage, definitionLanguage, callback) {
   browser.storage.local.get({
     definitions: [] // the default value is an empty array
   }).then((obj) => {
@@ -31,7 +31,7 @@ function saveWord(originalWord, definition, originalLanguage, definitionLanguage
       definitions.push(toAdd);
       console.log("Adding " + toAdd);
     
-      setStorage(definitions)
+      setStorage(definitions, callback)
 
     }
   }, (error) => {

@@ -49,8 +49,8 @@ async function testSite(driver, url, expectedText) {
   let driver = await new Builder().forBrowser('firefox')
                                 .setFirefoxOptions(firefoxOptions)
                                 .build();
-  driver.installAddon('../web-ext-artifacts/word_saver-' + version + '.zip');
   try {
+    await driver.installAddon('../web-ext-artifacts/word_saver-' + version + '.zip');
     await testSite(driver, 'https://en.bab.la/dictionary/spanish-english/hola', 'hola\thello\tes\ten');
     await testSite(driver, 'https://de.wiktionary.org/wiki/Test', 'der Test\tPrüfung einer Eigenschaft oder Fähigkeit (in schriftlicher, mündlicher oder sonstiger Form)\tde\tde');
     await testSite(driver, 'https://en.wiktionary.org/wiki/Test', 'Test\t(cricket) (sometimes test) a Test match\ten\ten');
@@ -61,6 +61,47 @@ async function testSite(driver, url, expectedText) {
     await testSite(driver, 'https://ru.wiktionary.org/wiki/hello', 'hello\tалло!\ten\tru');
     await testSite(driver, 'https://sv.wiktionary.org/wiki/hello', 'hello\thej, hallå\ten\tsv');
     await testSite(driver, 'https://www.wordreference.com/es/translation.asp?tranword=hello', 'hello\thola\ten\tes');
+  } finally {
+    await driver.quit()
+  }
+})();
+
+async function addWord(driver, originalWord, definition, originalLanguage, definitionLanguage) {
+  await driver.findElement(By.id('originalWord')).sendKeys(originalWord);
+  await driver.findElement(By.id('definition')).sendKeys(definition);
+  await driver.findElement(By.id('originalWordLanguage')).sendKeys(originalLanguage);
+  await driver.findElement(By.id('definitionLanguage')).sendKeys(definitionLanguage);
+  await driver.findElement(By.id('addWord')).click();
+}
+
+(async function testExportPage() {
+  let driver = await new Builder().forBrowser('firefox')
+                                .setFirefoxOptions(firefoxOptions)
+                                .build();
+  try {
+    await driver.installAddon('../web-ext-artifacts/word_saver-' + version + '.zip');
+    await driver.get('moz-extension://' + short_id + '/export.html')
+
+    assert.equal(await driver.findElement(By.id('editField')).getAttribute("value"), "");
+
+    await addWord(driver, "auf Wiedersehen", "goodbye", "de", "en");
+    await addWord(driver, "au revoir", "goodbye", "fr", "en");
+    await addWord(driver, "auf Wiedersehen", "au revoir", "de", "fr");
+
+    const FULL_LIST = `auf Wiedersehen\tgoodbye\tde\ten
+au revoir\tgoodbye\tfr\ten
+auf Wiedersehen\tau revoir\tde\tfr`
+    assert.equal(await driver.findElement(By.id('editField')).getAttribute("value"), FULL_LIST);
+
+    await driver.findElement(By.id('clearWords')).click();
+    assert.equal(await driver.findElement(By.id('editField')).getAttribute("value"), "");
+
+    await driver.findElement(By.id('editField')).sendKeys(FULL_LIST);
+    await driver.findElement(By.id('saveWords')).click();
+    assert.equal(await driver.findElement(By.id('editField')).getAttribute("value"), FULL_LIST);
+
+    // TODO: add testing for filtering words and clearing filtered words
+
   } finally {
     await driver.quit()
   }
