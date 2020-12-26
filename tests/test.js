@@ -21,20 +21,48 @@ if (use_headless) {
 
 const version = JSON.parse(fs.readFileSync('../manifest.json', 'utf8')).version;
 
-(async function example() {
+async function hideObscuringElement(driver) {
+  let elements = await driver.findElements(By.className("cc-banner"));
+  elements = elements.concat(await driver.findElements(By.id("onetrust-consent-sdk")));
+  elements = elements.concat(await driver.findElements(By.className("nav-open")));
+  for (element of elements) {
+    await driver.executeScript("arguments[0].style.visibility='hidden'", element);
+  }
+}
+
+async function testSite(driver, url, expectedText) {
+  await driver.get(url);
+  await driver.wait(until.elementsLocated(By.css('[value="Save"]')), 100000);
+  let saveButton = await driver.findElement(By.css('[value="Save"]'));
+  await hideObscuringElement(driver);
+  await driver.executeScript("arguments[0].scrollIntoView(false);", saveButton);
+  await saveButton.click();
+  await driver.get('moz-extension://' + short_id + '/export.html')
+  let text = await driver.findElement(By.id('editField')).getAttribute("value");
+  text = text.replace(/\u00A0/g, ' ');
+  console.log(text);
+  assert.equal(text, expectedText);
+  await driver.findElement(By.id('clearWords')).click();
+}
+
+(async function testSites() {
   let driver = await new Builder().forBrowser('firefox')
-                                  .setFirefoxOptions(firefoxOptions)
-                                  .build();
+                                .setFirefoxOptions(firefoxOptions)
+                                .build();
   driver.installAddon('../web-ext-artifacts/word_saver-' + version + '.zip');
   try {
-    await driver.get('https://en.wiktionary.org/wiki/Test');
-    await driver.wait(until.elementsLocated(By.css('[value="Save"]')), 1000)
-    await driver.findElement(By.css('[value="Save"]')).click();
-    await driver.get('moz-extension://' + short_id + '/exportPage.html')
-    let text = await driver.findElement(By.id('editField')).getAttribute("value");
-    console.log(text);
-    assert.equal(text, 'Test\t(cricket) (sometimes test) a Test match');
+    await testSite(driver, 'https://en.bab.la/dictionary/spanish-english/hola', 'hola\thello\tes\ten');
+    await testSite(driver, 'https://de.wiktionary.org/wiki/Test', 'der Test\tPrüfung einer Eigenschaft oder Fähigkeit (in schriftlicher, mündlicher oder sonstiger Form)\tde\tde');
+    await testSite(driver, 'https://en.wiktionary.org/wiki/Test', 'Test\t(cricket) (sometimes test) a Test match\ten\ten');
+    await testSite(driver, 'https://www.germaneveryday.com/der-weihnachtszauber/', 'der Weihnachtszauber (no pl.)\tChristmas magic\tde\ten');
+    await testSite(driver, 'https://glosbe.com/en/de/hello', 'hello\thallo\ten\tde');
+    await testSite(driver, 'https://www.larousse.fr/dictionnaires/francais/bonjour/10161', 'bonjour\tTerme de salutation dont on se sert pendant la journée quand on aborde quelqu\'un ou, moins souvent, quand on prend congé de quelqu\'un : Bonjour, comment allez-vous ?\tfr\tfr');
+    await testSite(driver, 'https://pl.wiktionary.org/wiki/hello', 'hello\tcześć, witaj\ten\tpl');
+    await testSite(driver, 'https://ru.wiktionary.org/wiki/hello', 'hello\tалло!\ten\tru');
+    await testSite(driver, 'https://sv.wiktionary.org/wiki/hello', 'hello\thej, hallå\ten\tsv');
+    await testSite(driver, 'https://www.wordreference.com/es/translation.asp?tranword=hello', 'hello\thola\ten\tes');
   } finally {
-    await driver.quit();
+    await driver.quit()
   }
 })();
+

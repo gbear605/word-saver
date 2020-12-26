@@ -29,12 +29,21 @@
         box-shadow: inset 0px 0px 3px 0px rgba(255,0,0,1);
         background: #fff;
       }
+      #settings {
+        margin-top: 60px;
+      }
+      .warning {
+        color: red;
+      }
     </style>
   </head>
 
   <body>
+    <header>
+      <h1> Word Saver </h1>
+    </header>
     <div id="exportData">
-      <h1>Export Word Saver Data</h1>
+      <h2> Export Data </h2>
       <button id="clearWords"> Clear Words </button> <br /> <br /> <br />
       <pre id="displayArea"> </pre> <br /> <br />
       <form class="editWordsForm">
@@ -45,21 +54,27 @@
       <form class="addWordForm">
         <h4> Add Word: </h4>
         <div>
-          <label for="translatee"> Translated word </label>
-          <input type="text" id="translatee" value=""/>
+          <label for="originalWord"> definition word </label>
+          <input type="text" id="originalWord" value=""/>
         </div>
         <div>
-          <label for="translated"> Translation </label>
-          <input type="text" id="translated" value=""/>
+          <label for="definition"> Translation </label>
+          <input type="text" id="definition" value=""/>
         </div>
         <input type="submit" id="addWord" value="Add Word">
         <div class="addWordError" hidden> You need to fill in both words to be saved </div>
       </form>
     </div>
-    <!--<div id="configureSearch">
-      <h1>Configure search buttons</h1>
-      <h3>Current search options:</h3>
-      <ul id="currentSearchList"></ul>
+    <!--<div id="settings">
+      <h2> Settings </h2>
+      <details>
+        <summary> </summary>
+        <div id="configureSearch">
+          <h1>Configure search buttons</h1>
+          <h3>Current search options:</h3>
+          <ul id="currentSearchList"></ul>
+        </div>
+      </details>
     </div>-->
   </body>
 

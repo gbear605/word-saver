@@ -1,9 +1,8 @@
-// TODO: use language information
-/*
 let languagePair = document.URL.split('/')[document.URL.split('/').length-2].split('-');
 let firstLanguage = convertFullNameToISO(languagePair[0]);
 let secondLanguage = convertFullNameToISO(languagePair[1]);
-*/
+
+console.log('first language: ' + firstLanguage);
 
 for (row of document.querySelectorAll(".dict-entry")) {
 
@@ -12,8 +11,8 @@ for (row of document.querySelectorAll(".dict-entry")) {
     continue;
   }
 
-  let translateeWord = translationInformationRow.querySelector('.dict-source strong').textContent;
-  let translatedWord = translationInformationRow.querySelector('.dict-result strong').textContent;
+  let originalWord = translationInformationRow.querySelector('.dict-source strong').textContent;
+  let definition = translationInformationRow.querySelector('.dict-result strong').textContent;
 
   // TODO: use wordType information
   /*
@@ -27,25 +26,6 @@ for (row of document.querySelectorAll(".dict-entry")) {
   var saveButton = document.createElement("input");
   saveButton.type = "button";
   saveButton.value = "Save";
-  saveButton.onclick = makeSaveWordFunction(translateeWord, translatedWord);
+  saveButton.onclick = () => saveWord(originalWord, definition, firstLanguage, secondLanguage);
   translationInformationRow.appendChild(saveButton);
-}
-
-
-function makeSaveWordFunction(translateeWord, translatedWord) {
-  return function() {
-
-    console.log("Translated " + translateeWord + " to " + translatedWord);
-    if(typeof browser === 'undefined') {
-      browser = chrome
-    }
-    browser.runtime.sendMessage(
-      {
-        "translatee": translateeWord,
-        "translated": translatedWord,
-        "fromLanguage": null,
-        "toLanguage": null
-      }
-    );
-  }
 }

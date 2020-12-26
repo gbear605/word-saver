@@ -1,6 +1,6 @@
-function setStorage(translatedWords, callback) {
-  browser.storage.local.set({translatedWords}).then(() => {
-    console.log(translatedWords);
+function setStorage(definitions, callback) {
+  browser.storage.local.set({definitions}).then(() => {
+    console.log(definitions);
     if(callback != null) {
       callback();
     }
@@ -12,9 +12,9 @@ function setStorage(translatedWords, callback) {
 function saveWords(words, callback) {
 
   browser.storage.local.get({
-    translatedWords: [] // the default value is an empty array
+    definitions: [] // the default value is an empty array
   }).then((obj) => {
-    let translatedWords = obj.translatedWords;
+    let definitions = obj.definitions;
 
     for (word of words) {
       if(word === "") {
@@ -22,88 +22,92 @@ function saveWords(words, callback) {
       }
       let parts = word.split('\t');
       let toAdd = `${parts[0]}\t${parts[1]}`;
-      translatedWords.push(toAdd);
+      definitions.push(toAdd);
       console.log("Adding " + toAdd);
     }
 
-    setStorage(translatedWords, callback)
+    setStorage(definitions, callback)
     
   }, (error) => {
     console.log("Error: " + error);
   });
 }
 
-function saveWord(translatee, translated, callback) {
+function saveWord(originalWord, definition, callback) {
   browser.storage.local.get({
-    translatedWords: [] // the default value is an empty array
+    definitions: [] // the default value is an empty array
   }).then((obj) => {
-    let translatedWords = obj.translatedWords;
+    let definitions = obj.definitions;
 
-    let toAdd = `${translatee}\t${translated}`;
-    let toAddAlt = `${translated}\t${translatee}`;
+    let toAdd = `${originalWord}\t${definition}`;
+    let toAddAlt = `${definition}\t${originalWord}`;
     
     // Don't add duplicates, including the same word in the opposite language order
-    if(!translatedWords.includes(toAdd) && !translatedWords.includes(toAddAlt)) {
-      translatedWords.push(toAdd);
+    if(!definitions.includes(toAdd) && !definitions.includes(toAddAlt)) {
+      definitions.push(toAdd);
       console.log("Adding " + toAdd);
 
-      setStorage(translatedWords, callback)
+      setStorage(definitions, callback)
     }
   }, (error) => {
     console.log("Error: " + error);
   });
 }
 
-function setPage(text, numRows) {
-  document.getElementById("displayArea").innerText = text;
+function setPage(displayText, editText, numRows) {
+  document.getElementById("displayArea").innerText = displayText;
   let textarea = document.getElementById("editField")
-  textarea.value = text;
+  textarea.value = editText;
   textarea.rows = numRows;
   textarea.cols = 80;
 }
 
 function loadNew() {
   browser.storage.local.get({
-    translatedWords: [] // the default value is an empty array
+    definitions: [] // the default value is an empty array
   }).then((obj) => {
-    setPage(obj.translatedWords.join("\n"), obj.translatedWords.length + 3);
+    let displayText = obj.definitions.map((text) => text.split("\t").splice(0,2).join("\t")).join("\n");
+    let editText = obj.definitions.join("\n");
+    setPage(displayText, editText, obj.definitions.length);
   });
   
 }
 
 window.onload = () => {
   document.getElementById("clearWords").addEventListener("click", () => {
-    browser.storage.local.clear();
-    setPage("", 3);
+    browser.storage.local.remove("definitions");
+    setPage("", "", 0);
   });
+  
   document.getElementById("saveWords").addEventListener("click", () => {
     event.preventDefault();
-    browser.storage.local.clear();
+    browser.storage.local.remove("definitions");
     let textToSave = document.getElementById("editField").value;
     let words = textToSave.split('\n');
     saveWords(words, loadNew);
   });
+
   document.getElementById("addWord").addEventListener("click", (event) => {
     event.preventDefault();
-    let translatee = document.getElementById("translatee").value;
-    let translated = document.getElementById("translated").value;
-    if(translatee === "" || translated === "") {
+    let originalWord = document.getElementById("originalWord").value;
+    let definition = document.getElementById("definition").value;
+    if(originalWord === "" || definition === "") {
       document.getElementsByClassName("addWordError")[0].removeAttribute("hidden");
       document.getElementsByClassName("addWordError")[0].removeAttribute("aria-hidden");
-      if(translatee === "") {
-        document.getElementById("translatee").classList.add("input-invalid")
+      if(originalWord === "") {
+        document.getElementById("originalWord").classList.add("input-invalid")
       }
-      if(translated === "") {
-        document.getElementById("translated").classList.add("input-invalid")
+      if(definition === "") {
+        document.getElementById("definition").classList.add("input-invalid")
       }
       return;
     } else {
       document.getElementsByClassName("addWordError")[0].setAttribute("hidden", true);
       document.getElementsByClassName("addWordError")[0].setAttribute("aria-hidden", true);
     }
-    document.getElementById("translatee").value = "";
-    document.getElementById("translated").value = "";
-    saveWord(translatee, translated, loadNew);
+    document.getElementById("originalWord").value = "";
+    document.getElementById("definition").value = "";
+    saveWord(originalWord, definition, loadNew);
   });
 }
 

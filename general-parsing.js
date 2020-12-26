@@ -3,6 +3,21 @@ function isVowel(x) {
   return /[aeiouAEIOU]/.test(x);
 }
 
+function saveWord(originalWord, definition, originalLanguage, definitionLanguage) {
+    console.log("Matched " + originalWord + " to " + definition);
+    if(typeof browser === 'undefined') {
+      browser = chrome
+    }
+    browser.runtime.sendMessage(
+      {
+        "originalWord": originalWord,
+        "definition": definition,
+        "originalLanguage": originalLanguage,
+        "definitionLanguage": definitionLanguage
+      }
+    );
+}
+
 function processWord(word, translateInfo, language) {
   word = word.trim().replace("⇒","");
 
@@ -53,8 +68,9 @@ function processWord(word, translateInfo, language) {
 }
 
 function convertFullNameToISO(fullName) {
+    fullName = fullName[0].toUpperCase() + fullName.slice(1);
     for (const [shortName, info] of Object.entries(isoLangs)) {
-      if (info.name == fullName) {
+      if (info.name.includes(fullName)) {
             return shortName
         }
     }

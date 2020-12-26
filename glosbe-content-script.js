@@ -1,7 +1,7 @@
 let urlSplits = document.URL.split('/');
-let fromLanguage = urlSplits[urlSplits.length-3];
-let toLanguage = urlSplits[urlSplits.length-2];
-let translateeWord = urlSplits[urlSplits.length-1];
+let originalLanguage = urlSplits[urlSplits.length-3];
+let definitionLanguage = urlSplits[urlSplits.length-2];
+let originalWord = urlSplits[urlSplits.length-1].replace("%20", " ");
 
 for (row of document.querySelectorAll("li.phraseMeaning")) {
 
@@ -10,17 +10,17 @@ for (row of document.querySelectorAll("li.phraseMeaning")) {
     metaInformationNode = metaInformationNode.previousElementSibling;
   }
   let partOfSpeech = null;
-  let translateeGender = null;
+  let originalWordGender = null;
   if (metaInformationNode != null) {
     for (metaInformationInnerNode of metaInformationNode.querySelectorAll('.defmeta')) {
       if (metaInformationInnerNode.textContent == 'Gender:') {
-        translateeGender = metaInformationInnerNode.nextElementSibling.textContent.trim().replace(';', '');
-        if (translateeGender == 'feminine') {
-          translateeGender = 'f'
-        } else if (translateeGender == 'masculine') {
-          translateeGender = 'm'
-        } else if (translateeGender == 'neuter') {
-          translateeGender = 'n'
+        originalWordGender = metaInformationInnerNode.nextElementSibling.textContent.trim().replace(';', '');
+        if (originalWordGender == 'feminine') {
+          originalWordGender = 'f'
+        } else if (originalWordGender == 'masculine') {
+          originalWordGender = 'm'
+        } else if (originalWordGender == 'neuter') {
+          originalWordGender = 'n'
         }
       }
       if (metaInformationInnerNode.textContent == 'Type:') {
@@ -29,72 +29,54 @@ for (row of document.querySelectorAll("li.phraseMeaning")) {
     }
   }
 
-  let translatedWord = row.querySelector(".text-info strong").textContent;
-  let translatedGender = null;
+  let definition = row.querySelector(".text-info strong").textContent;
+  let definitionGender = null;
   let genderAndPhraseInformation = row.querySelector(".gender-n-phrase").textContent.replace('{', '').replace('}', '').trim()
   if (genderAndPhraseInformation == "noun feminine") {
-    translatedGender = 'f'
+    definitionGender = 'f'
   } else if (genderAndPhraseInformation == 'noun masculine') {
-    translatedGender = 'm'
+    definitionGender = 'm'
   } else if (genderAndPhraseInformation == 'noun neuter') {
-    translatedGender = 'n'
+    definitionGender = 'n'
   }
   
+  let originalWordInfo = null;
+  if(originalLanguage == "de") {
+    if(partOfSpeech == "noun") {
+      originalWordInfo = "N" + originalWordGender;
+    }
+  }
+  if(originalLanguage == "es" || originalLanguage == "fr") {
+    if(partOfSpeech == "noun") {
+      originalWordInfo = "n" + originalWordGender;
+    }
+  }
+  if(originalWordInfo == null) {
+    originalWordInfo = partOfSpeech; // We haven't handled this case
+  }
+
+  let definitionInfo = null;
+  if(definitionLanguage == "de") {
+    if(partOfSpeech == "noun") {
+      definitionInfo = "N" + definitionGender;
+    }
+  }
+  if(definitionLanguage == "es" || definitionLanguage == "fr") {
+    if(partOfSpeech == "noun") {
+      definitionInfo = "n" + definitionGender;
+    }
+  }
+  if(definitionInfo == null) {
+    definitionInfo = partOfSpeech; // We haven't handled this case
+  }
+
+  let originalWordWithInformation = processWord(originalWord, originalWordInfo, originalLanguage);
+  definition = processWord(definition, definitionInfo, definitionLanguage);
+
+
   var saveButton = document.createElement("input");
   saveButton.type = "button";
   saveButton.value = "Save";
-  saveButton.onclick = makeSaveWordFunction(fromLanguage, toLanguage, translateeWord, translatedWord, partOfSpeech, translateeGender, translatedGender);
+  saveButton.onclick = () => saveWord(originalWordWithInformation, definition, originalLanguage, definitionLanguage);
   row.appendChild(saveButton);
-}
-
-
-function makeSaveWordFunction(fromLanguage, toLanguage, translateeWord, translatedWord, partOfSpeech, translateeGender, translatedGender) {
-  return function() {
-
-    let translateeInfo = null;
-    if(fromLanguage == "de") {
-      if(partOfSpeech == "noun") {
-        translateeInfo = "N" + translateeGender;
-      }
-    }
-    if(fromLanguage == "es" || fromLanguage == "fr") {
-      if(partOfSpeech == "noun") {
-        translateeInfo = "n" + translateeGender;
-      }
-    }
-    if(translateeInfo == null) {
-      translateeInfo = partOfSpeech; // We haven't handled this case
-    }
-
-    let translatedInfo = null;
-    if(toLanguage == "de") {
-      if(partOfSpeech == "noun") {
-        translatedInfo = "N" + translatedGender;
-      }
-    }
-    if(toLanguage == "es" || toLanguage == "fr") {
-      if(partOfSpeech == "noun") {
-        translatedInfo = "n" + translatedGender;
-      }
-    }
-    if(translatedInfo == null) {
-      translatedInfo = partOfSpeech; // We haven't handled this case
-    }
-
-    translatee = processWord(translateeWord, translateeInfo, fromLanguage);
-    translated = processWord(translatedWord, translatedInfo, toLanguage);
-
-    console.log("Translated " + translatee + " to " + translated);
-    if(typeof browser === 'undefined') {
-      browser = chrome
-    }
-    browser.runtime.sendMessage(
-      {
-        "translatee": translatee,
-        "translated": translated,
-        "fromLanguage": fromLanguage,
-        "toLanguage": toLanguage
-      }
-    );
-  }
 }

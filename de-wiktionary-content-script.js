@@ -1,11 +1,7 @@
-let toLanguage = "de";
-let translateeWord = decodeURI(document.URL.split('/').slice(-1)[0]).split('#')[0]; // Gets the last element of the url
-console.log(translateeWord)
+let definitionLanguage = "de";
+let originalWord = decodeURI(document.URL.split('/').slice(-1)[0]).split('#')[0]; // Gets the last element of the url
 
 for (section of document.querySelectorAll('[title="Sinn und Bezeichnetes (Semantik)"]')) {
-  debugger;
-
-  console.log("\n\n\n")
   let backSearchElement = section;
   while(backSearchElement != null && backSearchElement.tagName != "H3") {
     backSearchElement = backSearchElement.previousElementSibling;
@@ -14,75 +10,55 @@ for (section of document.querySelectorAll('[title="Sinn und Bezeichnetes (Semant
   let partOfSpeech = null;
   if(backSearchElement != null) {
     gender = backSearchElement.childNodes[1].children[1].textContent;
-    console.log(gender);
     partOfSpeech = backSearchElement.childNodes[1].children[0].textContent;
-    console.log(partOfSpeech);
   }
 
   while(backSearchElement != null && backSearchElement.tagName != "H2") {
     backSearchElement = backSearchElement.previousElementSibling;
   }
-  let fromLanguage = null;
+  let originalLanguage = null;
   if (backSearchElement != null) {
-    fromLanguage = backSearchElement.childNodes[1].childNodes[1].textContent;
-    if(fromLanguage == 'Deutsch') {
-      fromLanguage = "de"
+    originalLanguage = backSearchElement.childNodes[1].childNodes[1].textContent;
+    if(originalLanguage == 'Deutsch') {
+      originalLanguage = "de"
+    } else if(originalLanguage == 'Englisch') {
+      originalLanguage = "en"
+    } else if(originalLanguage == 'Italienisch') {
+      originalLanguage = "it"
+    } else if(originalLanguage == 'Spanisch') {
+      originalLanguage = "es"
     }
   }
-  console.log(fromLanguage);
+
+  let translateInfo;
+  if(originalLanguage == "de") {
+    if(partOfSpeech == "Substantiv") {
+      translateInfo = "N" + gender;
+    }
+  }
+  if(originalLanguage == "es" || originalLanguage == "fr") {
+    if(partOfSpeech == "Substantiv") {
+      translateInfo = "n" + gender;
+    }
+  }
+  if(typeof translateInfo === 'undefined') {
+    translateInfo = partOfSpeech; // We haven't handled this case
+  }
+
+  let originalWordWithInformation = processWord(originalWord, translateInfo, originalLanguage);
 
   for (row of section.nextElementSibling.childNodes) {
     if (row.localName != "dd") {
       continue;
     }
 
-    console.log(row);
-
-    let translatedWord = row.textContent.split('] ')[1].replace("  ", " ");
+    let definition = row.textContent.split('] ')[1].replace("  ", " ");
+    definition = processWord(definition, partOfSpeech, definitionLanguage);
 
     var saveButton = document.createElement("input");
     saveButton.type = "button";
     saveButton.value = "Save";
-    saveButton.onclick = makeSaveWordFunction(toLanguage, fromLanguage, translateeWord, translatedWord, partOfSpeech, gender);
+    saveButton.onclick = () => saveWord(originalWordWithInformation, definition, originalLanguage, definitionLanguage);
     row.appendChild(saveButton);
-  }
-}
-
-function makeSaveWordFunction(toLanguage, fromLanguage, translateeWord, translatedWord, partOfSpeech, gender) {
-  return function() {
-
-    let translateInfo;
-
-    if(fromLanguage == "de") {
-      if(partOfSpeech == "Substantiv") {
-        translateInfo = "N" + gender;
-      }
-    }
-
-    if(fromLanguage == "es" || fromLanguage == "fr") {
-      if(partOfSpeech == "Substantiv") {
-        translateInfo = "n" + gender;
-      }
-    }
-
-    if(typeof translateInfo === 'undefined') {
-      translateInfo = partOfSpeech; // We haven't handled this case
-    }
-
-    let translatee = processWord(translateeWord, translateInfo, fromLanguage);
-    let translated = processWord(translatedWord, partOfSpeech, toLanguage);
-
-    console.log("Translated " + translatee + " to " + translated);
-    if(typeof browser === 'undefined') {
-      browser = chrome
-    }
-    browser.runtime.sendMessage(
-      {
-        "translatee": translatee,
-        "translated": translated,
-        "fromLanguage": fromLanguage,
-        "toLanguage": toLanguage
-      }
-    );
   }
 }

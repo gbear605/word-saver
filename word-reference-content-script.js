@@ -7,15 +7,29 @@ for (row of document.querySelectorAll("table.WRD > tbody > tr")) {
     continue;
   }
 
-  let translateeRow = row;
-  while(translateeRow.id == "" || translateeRow.id == undefined) {
-    translateeRow = translateeRow.previousSibling;
+  let originalWordRow = row;
+  while(originalWordRow.id == "" || originalWordRow.id == undefined) {
+    originalWordRow = originalWordRow.previousSibling;
   }
-  console.log(translateeRow);
   
   var saveButton = document.createElement("button");
   saveButton.textContent = "Save";
-  saveButton.onclick = makeSaveWordFunction(translateeRow,row);
+  saveButton.value = "Save"
+
+  let langString = originalWordRow.id.split(":")[0];
+  let originalLanguage = langString[0] + langString[1];
+  let definitionLanguage = langString[2] + langString[3];
+
+  let originalWordInfo = originalWordRow.childNodes[0].querySelector(".POS2").childNodes[0].textContent;
+  let definitionInfo = row.childNodes[2].querySelector(".POS2").childNodes[0].textContent;
+
+  let originalWordBox = originalWordRow.children[0].firstChild;
+  let definitionBox = row.children[2];
+
+  let originalWord = processWord(processTranslateBox(originalWordBox), originalWordInfo, originalLanguage);
+  let definition = processWord(processTranslateBox(definitionBox), definitionInfo, definitionLanguage);
+
+  saveButton.onclick = () => saveWord(originalWord, definition, originalLanguage, definitionLanguage);
   row.appendChild(saveButton);
 }
 
@@ -33,36 +47,5 @@ function processTranslateBox(translateBox) {
                 .map((node) => node.textContent)
                 .join("")
                 .trim();
-  }
-}
-
-
-function makeSaveWordFunction(translateeRow, translatedRow) {
-  return function() {
-    let langString = translateeRow.id.split(":")[0];
-    let fromLanguage = langString[0] + langString[1];
-    let toLanguage = langString[2] + langString[3];
-
-    let translateeInfo = translateeRow.childNodes[0].querySelector(".POS2").childNodes[0].textContent;
-    let translatedInfo = translatedRow.childNodes[2].querySelector(".POS2").childNodes[0].textContent;
-
-    let translateeBox = translateeRow.children[0].firstChild;
-    let translatedBox = translatedRow.children[2];
-
-    let translatee = processWord(processTranslateBox(translateeBox), translateeInfo, fromLanguage);
-    let translated = processWord(processTranslateBox(translatedBox), translatedInfo, toLanguage);
-
-    console.log("Translated " + translatee + " to " + translated);
-    if(typeof browser === 'undefined') {
-      browser = chrome
-    }
-    browser.runtime.sendMessage(
-      {
-        "translatee": translatee,
-        "translated": translated,
-        "fromLanguage": fromLanguage,
-        "toLanguage": toLanguage
-      }
-    );
   }
 }

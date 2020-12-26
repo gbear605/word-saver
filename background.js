@@ -2,13 +2,13 @@ let notifId = "wordreference";
 
 function openExportPage() {
   browser.tabs.create({
-    "url": "/exportPage.html"
+    "url": "/export.html"
   });
 }
 
-function setStorage(translatedWords, callback) {
-  browser.storage.local.set({translatedWords}).then(() => {
-    console.log(translatedWords);
+function setStorage(definitions, callback) {
+  browser.storage.local.set({definitions}).then(() => {
+    console.log(definitions);
     if(callback != null) {
       callback();
     }
@@ -17,21 +17,21 @@ function setStorage(translatedWords, callback) {
   });
 }
 
-function saveWord(translatee, translated) {
+function saveWord(originalWord, definition, originalLanguage, definitionLanguage) {
   browser.storage.local.get({
-    translatedWords: [] // the default value is an empty array
+    definitions: [] // the default value is an empty array
   }).then((obj) => {
-    let translatedWords = obj.translatedWords;
+    let definitions = obj.definitions;
 
-    let toAdd = `${translatee}\t${translated}`;
-    let toAddAlt = `${translated}\t${translatee}`;
+    let toAdd = `${originalWord}\t${definition}\t${originalLanguage}\t${definitionLanguage}`;
+    let toAddAlt = `${definition}\t${originalWord}\t${definitionLanguage}\t${originalLanguage}`;
     
     // Don't add duplicates, including the same word in the opposite language order
-    if(!translatedWords.includes(toAdd) && !translatedWords.includes(toAddAlt)) {
-      translatedWords.push(toAdd);
+    if(!definitions.includes(toAdd) && !definitions.includes(toAddAlt)) {
+      definitions.push(toAdd);
       console.log("Adding " + toAdd);
     
-      setStorage(translatedWords)
+      setStorage(definitions)
 
     }
   }, (error) => {
@@ -40,21 +40,21 @@ function saveWord(translatee, translated) {
 }
 
 function notify(message) {
-  let translatee = message.translatee;
-  let translated = message.translated;
-  let fromLanguage = message.fromLanguage;
-  let toLanguage = message.toLanguage;
+  let originalWord = message.originalWord;
+  let definition = message.definition;
+  let originalLanguage = message.originalLanguage;
+  let definitionLanguage = message.definitionLanguage;
 
-  saveWord(translatee, translated);
+  saveWord(originalWord, definition, originalLanguage, definitionLanguage);
 
   let randNum = Math.floor(Math.random() * 100000000) + 1;
   let customNotifId = notifId + randNum;
 
   let notifMessage;
-  if (fromLanguage != null && toLanguage != null) {
-    notifMessage = "Translated " + translatee + " (" + fromLanguage + ") to " + translated + " (" + toLanguage + ")";
+  if (originalLanguage != null && definitionLanguage != null) {
+    notifMessage = "Matched " + originalWord + " (" + originalLanguage + ") to " + definition + " (" + definitionLanguage + ")";
   } else {
-    notifMessage = "Translated " + translatee + " to " + translated;
+    notifMessage = "Matched " + originalWord + " to " + definition;
   }
   browser.notifications.create(customNotifId, {
     "type": "basic",
