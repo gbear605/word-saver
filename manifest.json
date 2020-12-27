@@ -116,6 +116,15 @@
         "larousse-fr-content-script.js"
       ],
       "run_at": "document_end"
+    },
+    {
+      "matches": ["*://translate.google.com/*"],
+      "js": [
+        "browser-polyfill.js",
+        "general-parsing.js",
+        "google-translate-content-script.js"
+      ],
+      "run_at": "document_end"
     }
   ],
 
