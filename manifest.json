@@ -133,11 +133,6 @@
   },
 
   "permissions": [
-    "*://*.wordreference.com/*",
-    "*://*.wiktionary.org/*",
-    "*://*.germaneveryday.com/*",
-    "*://*.bab.la/*",
-    "*://*.glosbe.com/*",
     "storage",
     "unlimitedStorage",
     "notifications",
