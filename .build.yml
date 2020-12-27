@@ -5,6 +5,7 @@ packages:
   - curl
   - gtk+3.0
   - chromium-browser
+shell: true
 sources:
   - https://git.sr.ht/~gbear605/word-saver
 secrets:
