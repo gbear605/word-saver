@@ -25,9 +25,6 @@ const chromeBinary = process.env.CHROME_BINARY || '/Applications/Google\ Chrome.
 let chromeOptions = new chrome.Options()
     .setChromeBinaryPath(chromeBinary)
     .addArguments("load-extension=..");
-if (use_headless) {
-  chromeOptions = chromeOptions.headless();
-}
 
 async function hideObscuringElement(driver) {
   let elements = await driver.findElements(By.className("cc-banner"));
@@ -72,6 +69,7 @@ async function testSitesFirefox() {
                                 .build();
   try {
     await driver.installAddon('../web-ext-artifacts/word_saver-' + version + '.zip');
+    console.log("Running testSitesFirefox");
     await testSites(driver, 'moz-extension://' + firefoxId);
   } finally {
     await driver.quit()
@@ -83,6 +81,7 @@ async function testSitesChrome() {
                                 .setChromeOptions(chromeOptions)
                                 .build();
   try {
+    console.log("Running testSitesChrome");
     await testSites(driver, 'chrome-extension://' + chromeId);
   } finally {
     await driver.quit()
@@ -127,7 +126,10 @@ async function testExportPageFirefox() {
                                 .build();
   try {
     await driver.installAddon('../web-ext-artifacts/word_saver-' + version + '.zip');
+    console.log("Running testExportPageFirefox");
     await testExportPage(driver, 'moz-extension://' + firefoxId );
+  } catch(err) {
+
   } finally {
     await driver.quit()
   }
@@ -138,6 +140,7 @@ async function testExportPageChrome() {
                                 .setChromeOptions(chromeOptions)
                                 .build();
   try {
+    console.log("Running testExportPageChrome");
     await testExportPage(driver, 'chrome-extension://' + chromeId);
   } finally {
     await driver.quit()
@@ -145,9 +148,17 @@ async function testExportPageChrome() {
 }
 
 (async function runTests() {
-  await testExportPageChrome();
-  await testExportPageFirefox();
-  await testSitesChrome();
-  await testSitesFirefox();
+  try {
+    await testExportPageFirefox();
+    await testSitesFirefox();
+    if (!use_headless) {
+      // Chrome doesn't support headless extensions
+      await testExportPageChrome();
+      await testSitesChrome();
+    }
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
 })();
 
