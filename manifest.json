@@ -16,7 +16,8 @@
 
   "browser_specific_settings": {
     "gecko": {
-      "id": "{389d5e14-b6b7-46c2-a379-e01f727e4d2b}"
+      "id": "{389d5e14-b6b7-46c2-a379-e01f727e4d2b}",
+      "update_url": "https://greenwichmeanti.me/wordsaver/updates.json"
     }
   },
 
@@ -137,7 +138,5 @@
     "unlimitedStorage",
     "notifications",
     "contextMenus"
-  ],
-
-  "update_url": "https://greenwichmeanti.me/wordsaver/word_saver-LATEST-an+fx.xpi"
+  ]
 }

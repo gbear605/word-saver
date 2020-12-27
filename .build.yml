@@ -17,7 +17,7 @@ tasks:
       sudo npm install --global chrome-webstore-upload-cli || true
   - build: |
       cd word-saver
-      web-ext lint
+      web-ext lint --self-hosted --boring
       web-ext build
   - setup-test: |
       curl --location "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | tar --extract --verbose --preserve-permissions --bzip2
@@ -50,6 +50,6 @@ tasks:
         echo $MANIFEST_VERSION > VERSION.txt
         scp -o "StrictHostKeyChecking=no" ./web-ext-artifacts/word_saver-$MANIFEST_VERSION.zip root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver
         scp -o "StrictHostKeyChecking=no" ./web-ext-artifacts/word_saver-$MANIFEST_VERSION-an+fx.xpi root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver
-        scp -o "StrictHostKeyChecking=no" ./web-ext-artifacts/word_saver-$MANIFEST_VERSION-an+fx.xpi root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver/word_saver-LATEST-an+fx.xpi
+        scp -o "StrictHostKeyChecking=no" ./web-ext-artifacts/updates.json root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver
         scp -o "StrictHostKeyChecking=no" ./VERSION.txt root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver
       fi
