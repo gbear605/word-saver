@@ -10,6 +10,9 @@ secrets:
   - ecfd2bcd-aa06-44cb-8e3f-068751a71ce6
   - 9ec2af9f-3ed8-4c2f-b02c-53d0daee8fe6
   - 0755116a-2598-41d7-b910-e8d6d97410b3
+  - 646782d7-0420-431f-9c11-9daea43f9008
+  - ea87d0eb-b3e2-403d-9980-cbf4a892bb76
+  - d544f9f3-1d3c-49a5-ac01-04c7b5080ee4
 tasks:
   - setup: |
       sudo npm config set progress=false

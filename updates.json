@@ -1,0 +1,100 @@
+{
+  "addons": {
+    "{389d5e14-b6b7-46c2-a379-e01f727e4d2b}": {
+      "updates": [
+        {
+          "version": "1.2",
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2-fx.xpi"
+        },
+        {
+          "version": "1.2.1",
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.1-fx.xpi"
+        },
+        {
+          "version": "1.2.2",
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.2-fx.xpi"
+        },
+        {
+          "version": "1.2.3",
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.3-an+fx.xpi"
+        },
+        {
+          "version": "1.2.4",
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.4-an+fx.xpi"
+        },
+        {
+          "version": "1.2.5",
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.5-an+fx.xpi"
+        },
+        {
+          "version": "1.4",
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.4-an+fx.xpi"
+        },
+        {
+          "version": "1.4.1",
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.4.1-an+fx.xpi"
+        },
+        {
+          "version": "1.4.2",
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.4.2-an+fx.xpi"
+        },
+        {
+          "version": "1.4.3",
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.4.3-an+fx.xpi"
+        },
+        {
+          "version": "1.4.4",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.4.4-an+fx.xpi"
+        },
+        {
+          "version": "1.5.0",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.5.0-an+fx.xpi"
+        },
+        {
+          "version": "1.5.1",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.5.1-an+fx.xpi"
+        },
+        {
+          "version": "1.5.2",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.5.2-an+fx.xpi"
+        },
+        {
+          "version": "1.6",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.6-an+fx.xpi"
+        },
+        {
+          "version": "1.7",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.7-an+fx.xpi"
+        },
+        {
+          "version": "1.8",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.8-an+fx.xpi"
+        },
+        {
+          "version": "1.8.1",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.8.1-an+fx.xpi"
+        },
+        {
+          "version": "1.8.2",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.8.2-an+fx.xpi"
+        },
+        {
+          "version": "1.9",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.9-an+fx.xpi"
+        },
+        {
+          "version": "1.10",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.10-an+fx.xpi"
+        },
+        {
+          "version": "1.11",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.11-an+fx.xpi"
+        },
+        {
+          "version": "1.11.0",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.11.0-an+fx.xpi"
+        }
+      ]
+    }
+  }
+}
