@@ -42,13 +42,19 @@ tasks:
 
       if [ $CURRENT_BRANCH = origin/main ] && [ x$MANIFEST_VERSION != x$CURRENT_VERSION ]
       then
+
+        if ! grep -q $MANIFEST_VERSION updates.json
+        then
+          echo "Version not found in updates file"
+        fi
+
         set +x 
         web-ext sign --api-key $(cat ~/jwt_issuer) --api-secret $(cat  ~/jwt_secret)
         EXTENSION_ID=$(cat CHROME_EXTENSION_ID)
         CLIENT_ID=$(cat ~/chrome-webstore-client-id)
         CLIENT_SECRET=$(cat ~/chrome-webstore-client-secret)
         REFRESH_TOKEN=$(cat ~/chrome-webstore-refresh-token)
-        webstore upload --auto-publish --source ./web-ext-artifacts/word_saver-$MANIFEST_VERSION.zip
+        webstore upload --auto-publish --source ./web-ext-artifacts/word_saver-$MANIFEST_VERSION.zip --extension-id $(cat CHROME_EXTENSION_ID)
         set -x
         echo $MANIFEST_VERSION > VERSION.txt
         scp -o "StrictHostKeyChecking=no" ./web-ext-artifacts/word_saver-$MANIFEST_VERSION.zip root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver

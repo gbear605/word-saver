@@ -93,6 +93,10 @@
         {
           "version": "1.11.0",
           "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.11.0-an+fx.xpi"
+        },
+        {
+          "version": "1.11.1",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.11.1-an+fx.xpi"
         }
       ]
     }
