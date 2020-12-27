@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Word Saver",
-  "description": "Save words from WordReference and Wiktionary to a text list.",
-  "version": "1.10",
+  "description": "Save words from WordReference, Wiktionary, and other websites to a text list.",
+  "version": "1.11",
   "homepage_url": "https://greenwichmeanti.me/wordsaver",
 
   "background": {
