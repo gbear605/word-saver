@@ -4,7 +4,6 @@ packages:
   - jq
   - curl
   - gtk+3.0
-shell: true
 sources:
   - https://git.sr.ht/~gbear605/word-saver
 secrets:
