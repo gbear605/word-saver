@@ -51,5 +51,6 @@ tasks:
         echo $MANIFEST_VERSION > VERSION.txt
         scp -o "StrictHostKeyChecking=no" ./web-ext-artifacts/word_saver-$MANIFEST_VERSION.zip root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver
         scp -o "StrictHostKeyChecking=no" ./web-ext-artifacts/word_saver-$MANIFEST_VERSION-an+fx.xpi root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver
+        scp -o "StrictHostKeyChecking=no" ./web-ext-artifacts/word_saver-$MANIFEST_VERSION-an+fx.xpi root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver/word_saver-LATEST-an+fx.xpi
         scp -o "StrictHostKeyChecking=no" ./VERSION.txt root@greenwichmeanti.me:/var/www/greenwichmeanti.me/public_html/wordsaver
       fi

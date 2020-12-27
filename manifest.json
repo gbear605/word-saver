@@ -137,5 +137,7 @@
     "unlimitedStorage",
     "notifications",
     "contextMenus"
-  ]
+  ],
+
+  "update_url": "https://greenwichmeanti.me/wordsaver/word_saver-LATEST-an+fx.xpi"
 }
