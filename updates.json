@@ -4,99 +4,123 @@
       "updates": [
         {
           "version": "1.2",
-          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2-fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2-fx.xpi",
+          "update_hash": "sha256:6c45aa2f25c052e4e479b2ce1b57c1472c3bf23b8f112a21adf88ce70b87e02c"
         },
         {
           "version": "1.2.1",
-          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.1-fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.1-fx.xpi",
+          "update_hash": "sha256:0071b321782dc172ebe7f93894e5c08138942bb7e2bf8beb0ed5f3ee29e75794"
         },
         {
           "version": "1.2.2",
-          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.2-fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.2-fx.xpi",
+          "update_hash": "sha256:36cee741206b38454edd53120fafff581abf758b932b359f53f39aa17deab693"
         },
         {
           "version": "1.2.3",
-          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.3-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.3-an+fx.xpi",
+          "update_hash": "sha256:0e6e0f17f162ab34f213539b660c8d8c6368c85f4988a6eb13c72acb7dc72b54"
         },
         {
           "version": "1.2.4",
-          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.4-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.4-an+fx.xpi",
+          "update_hash": "sha256:2a2a00c6a84bff1e275555d6e49902b8f021bc80751eb6df728219bc4e39d5e3"
         },
         {
           "version": "1.2.5",
-          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.5-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.2.5-an+fx.xpi",
+          "update_hash": "sha256:09faecd9335cefaee62038b7076f9a70c2dfaca66ea46d43c8a92917cdabd6f4"
         },
         {
           "version": "1.4",
-          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.4-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.4-an+fx.xpi",
+          "update_hash": "sha256:9237ebdfdd7c9185aabad74468e0fbaffd2b6e3b46577c9fa6ee3b4ba8e4fc41"
         },
         {
           "version": "1.4.1",
-          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.4.1-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.4.1-an+fx.xpi",
+          "update_hash": "sha256:6fb18a88ec127f0b851893cd32b93cc23cfcec05ef9d9b1a44b1208b8219c8bc"
         },
         {
           "version": "1.4.2",
-          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.4.2-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.4.2-an+fx.xpi",
+          "update_hash": "sha256:0af9ff979f30de752deca29bafa9f8a3a6b9c4b5d4aa15c0be808db88da21c6f"
         },
         {
           "version": "1.4.3",
-          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.4.3-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/wordreference_saver-1.4.3-an+fx.xpi",
+          "update_hash": "sha256:f23ab5cf97907087600013c42a6d7c9c226978afd16364b9370e373aaa6577f8"
         },
         {
           "version": "1.4.4",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.4.4-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.4.4-an+fx.xpi",
+          "update_hash": "sha256:d47dd625de8cac239588475efbd9fcf6566373d61d6ad66e616d2e192990d239"
         },
         {
           "version": "1.5.0",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.5.0-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.5.0-an+fx.xpi",
+          "update_hash": "sha256:4b1422b49f7cb2d990a0620f1852f28c16c2cacb702f99a9952fe0449aee9c17"
         },
         {
           "version": "1.5.1",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.5.1-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.5.1-an+fx.xpi",
+          "update_hash": "sha256:afd5a9047efda7257c1e2c0157b82b023742c51b7c9d3e1f3ed2e054c66e5c0c"
         },
         {
           "version": "1.5.2",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.5.2-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.5.2-an+fx.xpi",
+          "update_hash": "sha256:585242cf571646a846323ae6d7263d0d40b47727285ceede6612f42849088d0c"
         },
         {
           "version": "1.6",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.6-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.6-an+fx.xpi",
+          "update_hash": "sha256:7ea9705f02052353ef43bc46ef702464b4cfa08da905edfc1974cd1340a60069"
         },
         {
           "version": "1.7",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.7-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.7-an+fx.xpi",
+          "update_hash": "sha256:28a7b00eeb00d6e30d3cdfe0fc333d125979f2b98452cea65a5f3eb0f325dc9e"
         },
         {
           "version": "1.8",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.8-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.8-an+fx.xpi",
+          "update_hash": "sha256:0fe899636dfad471c1613a0f9a48f0a2c2912e60e5b0b6045937453bb702e372"
         },
         {
           "version": "1.8.1",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.8.1-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.8.1-an+fx.xpi",
+          "update_hash": "sha256:5ab66a520738628c6ad226d46d2c2bbc028662904f19d13316b7933bff95ccc0"
         },
         {
           "version": "1.8.2",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.8.2-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.8.2-an+fx.xpi",
+          "update_hash": "sha256:d2d3205297179ad39aed18af8850f0dc5278e47a48b40c908e17654b36d9609d"
         },
         {
           "version": "1.9",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.9-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.9-an+fx.xpi",
+          "update_hash": "sha256:927e117d7f4a9134d7830a4197dead39ad9a34ddda095787888540b632c5a4dc"
         },
         {
           "version": "1.10",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.10-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.10-an+fx.xpi",
+          "update_hash": "sha256:524e8e1fa0f5d4d0db0830cc37346f6ceb264c018e4bd5a95c47324562158939"
         },
         {
           "version": "1.11",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.11-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.11-an+fx.xpi",
+          "update_hash": "sha256:20c8be7e9a1c0f71f90cba6102b1e816d5d56f83582f5ad5e4c604916eeaa299"
         },
         {
           "version": "1.11.0",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.11.0-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.11.0-an+fx.xpi",
+          "update_hash": "sha256:efd389c8e8e68dd184159e7fe432cdae293a638bd53648d694f6f5b7feeb5f65"
         },
         {
           "version": "1.11.1",
-          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.11.1-an+fx.xpi"
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.11.1-an+fx.xpi",
+          "update_hash": "sha256:e141d9eb4d0c74962627472ec8b937b08c7594be424c55160ffc20da5267b62d"
         }
       ]
     }
