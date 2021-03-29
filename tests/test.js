@@ -31,7 +31,7 @@ async function hideObscuringElement(driver) {
   elements = elements.concat(await driver.findElements(By.id("onetrust-consent-sdk")));
   elements = elements.concat(await driver.findElements(By.className("nav-open")));
   for (element of elements) {
-    await driver.executeScript("arguments[0].style.visibility='hidden'", element);
+    await driver.executeScript("arguments[0].style.display='none'", element);
   }
 }
 
