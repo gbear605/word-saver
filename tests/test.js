@@ -61,6 +61,7 @@ async function testSites(driver, extensionPath) {
   await testSite(driver, 'https://pl.wiktionary.org/wiki/hello', 'hello\tcześć, witaj\ten\tpl', extensionPath);
   await testSite(driver, 'https://ru.wiktionary.org/wiki/hello', 'hello\tалло!\ten\tru', extensionPath);
   await testSite(driver, 'https://sv.wiktionary.org/wiki/hello', 'hello\thej, hallå\ten\tsv', extensionPath);
+  await testSite(driver, 'https://uk.wiktionary.org/wiki/волость', 'волость\tУ Київській державі: територія, підпорядкована єдиній владі (князя, монастиря тощо).\tuk\tuk', extensionPath);
   await testSite(driver, 'https://www.wordreference.com/es/translation.asp?tranword=hello', 'hello\thola\ten\tes', extensionPath);
 }
 

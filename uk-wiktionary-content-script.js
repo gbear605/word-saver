@@ -1,9 +1,8 @@
 /*
 Examples:
 Adjective: https://uk.wiktionary.org/wiki/гарний
-Noun: https://uk.wiktionary.org/wiki/%D0%B2%D0%BE%D0%BB%D0%BE%D1%81%D1%82%D1%8C
-Verb: https://uk.wiktionary.org/wiki/%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%D1%82%D0%B8
-Word in a non-Ukrainian language: https://uk.wiktionary.org/wiki/ask
+Noun: https://uk.wiktionary.org/wiki/волость
+Verb: https://uk.wiktionary.org/wiki/говорити
 */
 
 let definitionLanguage = "uk";
