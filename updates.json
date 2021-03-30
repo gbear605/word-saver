@@ -121,6 +121,11 @@
           "version": "1.11.1",
           "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.11.1-an+fx.xpi",
           "update_hash": "sha256:e141d9eb4d0c74962627472ec8b937b08c7594be424c55160ffc20da5267b62d"
+        },
+        {
+          "version": "1.12.1",
+          "update_link": "http://greenwichmeanti.me/wordsaver/word_saver-1.12.1-an+fx.xpi",
+          "update_hash": "sha256:b8da1443050335a2b5859bcb3f7e18fa9b20721e49d57419d697a3d0b3e84d73"
         }
       ]
     }
