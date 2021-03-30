@@ -29,16 +29,19 @@ let chromeOptions = new chrome.Options()
 async function hideObscuringElement(driver) {
   let elements = await driver.findElements(By.className("cc-banner"));
   elements = elements.concat(await driver.findElements(By.id("onetrust-consent-sdk")));
+  elements = elements.concat(await driver.findElements(By.id("ot-fade-in")));
   elements = elements.concat(await driver.findElements(By.className("nav-open")));
   for (element of elements) {
     await driver.executeScript("arguments[0].style.display='none'", element);
+    await driver.executeScript("arguments[0].style.visibility='hidden'", element);
   }
 }
 
 async function testSite(driver, url, expectedText, extensionPath) {
+  console.log("Running for", url)
   await driver.get(url);
-  await driver.wait(until.elementsLocated(By.css('[value="Save"]')), 100000);
-  let saveButton = await driver.findElement(By.css('[value="Save"]'));
+  await driver.wait(until.elementsLocated(By.css('[value="Save"],[value="Save to Word Saver"]')), 100000);
+  let saveButton = await driver.findElement(By.css('[value="Save"],[value="Save to Word Saver"]'));
   await hideObscuringElement(driver);
   await driver.executeScript("arguments[0].scrollIntoView(false);", saveButton);
   await saveButton.click();
@@ -61,7 +64,7 @@ async function testSites(driver, extensionPath) {
   await testSite(driver, 'https://pl.wiktionary.org/wiki/hello', 'hello\tcześć, witaj\ten\tpl', extensionPath);
   await testSite(driver, 'https://ru.wiktionary.org/wiki/hello', 'hello\tалло!\ten\tru', extensionPath);
   await testSite(driver, 'https://sv.wiktionary.org/wiki/hello', 'hello\thej, hallå\ten\tsv', extensionPath);
-  await testSite(driver, 'https://uk.wiktionary.org/wiki/волость', 'волость\tУ Київській державі: територія, підпорядкована єдиній владі (князя, монастиря тощо).\tuk\tuk', extensionPath);
+  await testSite(driver, 'https://uk.wiktionary.org/wiki/волость', 'волость\tУ Київській державі: територія, підпорядкована єдиній владі (князя, монастиря тощо). (Історичний термін)\tuk\tuk', extensionPath);
   await testSite(driver, 'https://www.wordreference.com/es/translation.asp?tranword=hello', 'hello\thola\ten\tes', extensionPath);
 }
 
