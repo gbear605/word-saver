@@ -59,7 +59,10 @@ async function testSites(driver, extensionPath) {
   await testSite(driver, 'https://en.wiktionary.org/wiki/Test', 'Test\t(cricket) (sometimes test) a Test match\ten\ten', extensionPath);
   await testSite(driver, 'https://www.germaneveryday.com/der-weihnachtszauber/', 'der Weihnachtszauber (no pl.)\tChristmas magic\tde\ten', extensionPath);
   await testSite(driver, 'https://glosbe.com/en/de/hello', 'hello\thallo\ten\tde', extensionPath);
-  await testSite(driver, 'https://translate.google.com/?sl=auto&tl=es&text=Hallo&op=translate', 'Hallo\tHola\tde\tes', extensionPath);
+  if (!use_headless) {
+    // Google Translate does not work from the automated test runner
+    await testSite(driver, 'https://translate.google.com/?sl=auto&tl=es&text=Hallo&op=translate', 'Hallo\tHola\tde\tes', extensionPath);
+  }
   await testSite(driver, 'https://www.larousse.fr/dictionnaires/francais/bonjour/10161', 'bonjour\tTerme de salutation dont on se sert pendant la journée quand on aborde quelqu\'un ou, moins souvent, quand on prend congé de quelqu\'un : Bonjour, comment allez-vous ?\tfr\tfr', extensionPath);
   await testSite(driver, 'https://pl.wiktionary.org/wiki/hello', 'hello\tcześć, witaj\ten\tpl', extensionPath);
   await testSite(driver, 'https://ru.wiktionary.org/wiki/hello', 'hello\tалло!\ten\tru', extensionPath);
